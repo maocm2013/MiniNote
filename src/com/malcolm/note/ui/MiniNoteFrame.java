@@ -85,23 +85,24 @@ public class MiniNoteFrame extends javax.swing.JFrame {
 
         jXTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "序号", "详细信息", "状态"
+                "选择", "序号", "详细信息", "完成日期", "紧急程度", "重要程度", "状态"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        jXTable2.setRowHeight(30);
         jScrollPane2.setViewportView(jXTable2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -109,7 +110,9 @@ public class MiniNoteFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(toolBar, javax.swing.GroupLayout.DEFAULT_SIZE, 825, Short.MAX_VALUE)
-            .addComponent(jScrollPane2)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 635, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
