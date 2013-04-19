@@ -27,61 +27,97 @@ public class MiniNoteFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         toolBar = new javax.swing.JToolBar();
-        addButton = new org.jdesktop.swingx.JXButton();
-        editButton = new org.jdesktop.swingx.JXButton();
-        deleteButton = new org.jdesktop.swingx.JXButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jXTable1 = new org.jdesktop.swingx.JXTable();
+        addBton = new javax.swing.JButton();
+        delBton = new javax.swing.JButton();
+        editBton = new javax.swing.JButton();
+        finishBton = new javax.swing.JButton();
+        searchBton = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jXTable2 = new org.jdesktop.swingx.JXTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("桌面便签");
+        setPreferredSize(new java.awt.Dimension(640, 480));
+        setResizable(false);
 
+        toolBar.setFloatable(false);
         toolBar.setRollover(true);
 
-        addButton.setText("jXButton1");
-        addButton.setFocusable(false);
-        addButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        addButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        toolBar.add(addButton);
+        addBton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/add.png"))); // NOI18N
+        addBton.setToolTipText("添加");
+        addBton.setFocusable(false);
+        addBton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        addBton.setPreferredSize(new java.awt.Dimension(83, 60));
+        addBton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        toolBar.add(addBton);
 
-        editButton.setText("jXButton1");
-        editButton.setFocusable(false);
-        editButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        editButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        toolBar.add(editButton);
+        delBton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/delete.png"))); // NOI18N
+        delBton.setToolTipText("删除");
+        delBton.setFocusable(false);
+        delBton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        delBton.setPreferredSize(new java.awt.Dimension(83, 60));
+        delBton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        toolBar.add(delBton);
 
-        deleteButton.setText("jXButton1");
-        deleteButton.setFocusable(false);
-        deleteButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        deleteButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        toolBar.add(deleteButton);
+        editBton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edit.png"))); // NOI18N
+        editBton.setToolTipText("修改");
+        editBton.setFocusable(false);
+        editBton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        editBton.setPreferredSize(new java.awt.Dimension(83, 60));
+        editBton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        toolBar.add(editBton);
 
-        jXTable1.setModel(new javax.swing.table.DefaultTableModel(
+        finishBton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/finish.png"))); // NOI18N
+        finishBton.setToolTipText("完成");
+        finishBton.setFocusable(false);
+        finishBton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        finishBton.setPreferredSize(new java.awt.Dimension(83, 60));
+        finishBton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        toolBar.add(finishBton);
+
+        searchBton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/search.png"))); // NOI18N
+        searchBton.setToolTipText("搜索");
+        searchBton.setFocusable(false);
+        searchBton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        searchBton.setPreferredSize(new java.awt.Dimension(83, 60));
+        searchBton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        toolBar.add(searchBton);
+
+        jXTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "序号", "详细信息", "状态"
             }
-        ));
-        jScrollPane1.setViewportView(jXTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(jXTable2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(toolBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(toolBar, javax.swing.GroupLayout.DEFAULT_SIZE, 825, Short.MAX_VALUE)
+            .addComponent(jScrollPane2)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(toolBar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(toolBar, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -122,11 +158,13 @@ public class MiniNoteFrame extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private org.jdesktop.swingx.JXButton addButton;
-    private org.jdesktop.swingx.JXButton deleteButton;
-    private org.jdesktop.swingx.JXButton editButton;
-    private javax.swing.JScrollPane jScrollPane1;
-    private org.jdesktop.swingx.JXTable jXTable1;
+    private javax.swing.JButton addBton;
+    private javax.swing.JButton delBton;
+    private javax.swing.JButton editBton;
+    private javax.swing.JButton finishBton;
+    private javax.swing.JScrollPane jScrollPane2;
+    private org.jdesktop.swingx.JXTable jXTable2;
+    private javax.swing.JButton searchBton;
     private javax.swing.JToolBar toolBar;
     // End of variables declaration//GEN-END:variables
 }
