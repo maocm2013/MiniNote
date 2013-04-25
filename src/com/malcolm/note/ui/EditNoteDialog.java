@@ -4,6 +4,9 @@
  */
 package com.malcolm.note.ui;
 
+import com.malcolm.note.util.DictEnum;
+import com.malcolm.note.util.UITools;
+
 /**
  *
  * @author user
@@ -49,6 +52,7 @@ public class EditNoteDialog extends javax.swing.JDialog {
 
         jXLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jXLabel1.setText("标题：");
+        jXLabel1.setFont(new java.awt.Font("黑体", 0, 14)); // NOI18N
         jXLabel1.setTextAlignment(org.jdesktop.swingx.JXLabel.TextAlignment.CENTER);
 
         jXLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -66,8 +70,12 @@ public class EditNoteDialog extends javax.swing.JDialog {
         jXLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jXLabel4.setText("优先级：");
 
+        jXComboBox1.setModel(UITools.getComboxValue(DictEnum.NotePriority.dataMap));
+
         jXLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jXLabel5.setText("状态：");
+
+        jXComboBox2.setModel(UITools.getComboxValue(DictEnum.NoteState.dataMap));
 
         jXButton1.setText("保   存");
 

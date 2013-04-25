@@ -118,6 +118,9 @@
       <Properties>
         <Property name="horizontalAlignment" type="int" value="4"/>
         <Property name="text" type="java.lang.String" value="&#x6807;&#x9898;&#xff1a;"/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="&#x9ed1;&#x4f53;" size="14" style="0"/>
+        </Property>
         <Property name="textAlignment" type="org.jdesktop.swingx.JXLabel$TextAlignment" editor="org.netbeans.modules.form.editors.EnumEditor">
           <Value id="CENTER"/>
         </Property>
@@ -166,6 +169,11 @@
       </Properties>
     </Component>
     <Component class="org.jdesktop.swingx.JXComboBox" name="jXComboBox1">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="UITools.getComboxValue(DictEnum.NotePriority.dataMap)" type="code"/>
+        </Property>
+      </Properties>
     </Component>
     <Component class="org.jdesktop.swingx.JXLabel" name="jXLabel5">
       <Properties>
@@ -174,6 +182,11 @@
       </Properties>
     </Component>
     <Component class="org.jdesktop.swingx.JXComboBox" name="jXComboBox2">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="UITools.getComboxValue(DictEnum.NoteState.dataMap)" type="code"/>
+        </Property>
+      </Properties>
     </Component>
     <Component class="org.jdesktop.swingx.JXButton" name="jXButton1">
       <Properties>
