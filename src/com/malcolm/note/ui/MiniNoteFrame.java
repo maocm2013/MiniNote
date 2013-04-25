@@ -5,6 +5,7 @@
 package com.malcolm.note.ui;
 
 import com.malcolm.note.action.NoteInfoAction;
+import com.malcolm.note.util.UITools;
 import org.jdesktop.swingx.renderer.CheckBoxProvider;
 import org.jdesktop.swingx.renderer.DefaultTableRenderer;
 
@@ -91,6 +92,8 @@ public class MiniNoteFrame extends javax.swing.JFrame {
         searchBton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         toolBar.add(searchBton);
 
+        //隐藏第一列（主键）
+        UITools.hideColumn(jXTable2, 1);
         jXTable2.setRowHeight(30);
         jScrollPane2.setViewportView(jXTable2);
 

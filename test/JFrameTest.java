@@ -1,6 +1,11 @@
 
 import com.malcolm.note.action.NoteInfoAction;
 import com.malcolm.note.ui.NoteTableModel;
+import com.malcolm.note.util.UITools;
+import javax.swing.table.TableColumn;
+import org.jdesktop.swingx.JXTable;
+import org.jdesktop.swingx.JXTable.BooleanEditor;
+import org.jdesktop.swingx.renderer.DefaultTableRenderer;
 import org.jdesktop.swingx.table.DefaultTableColumnModelExt;
 
 /*
@@ -34,6 +39,7 @@ public class JFrameTest extends javax.swing.JFrame {
         jXTable1 = new org.jdesktop.swingx.JXTable();
         jScrollPane3 = new javax.swing.JScrollPane();
         jXTable2 = new org.jdesktop.swingx.JXTable();
+        jXButton1 = new org.jdesktop.swingx.JXButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -42,6 +48,8 @@ public class JFrameTest extends javax.swing.JFrame {
         Object[][] datas1 = NoteInfoAction.getAllNoteTableData();
         model1.refreshContents(datas1);
         jXTable1.setModel(model1);
+        //第一列隐藏
+        UITools.hideColumn(jXTable1, 1);
         jScrollPane2.setViewportView(jXTable1);
         jXTable1.getColumnModel().getColumn(0).setResizable(false);
 
@@ -71,7 +79,18 @@ public class JFrameTest extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        //将第三列也显示复选框
+        TableColumn aColumn = jXTable2.getColumnModel().getColumn(2);
+        aColumn.setCellEditor(new JXTable.BooleanEditor());
+        aColumn.setCellRenderer(new DefaultTableRenderer());
         jScrollPane3.setViewportView(jXTable2);
+
+        jXButton1.setText("CHECK TEST");
+        jXButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jXButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -82,19 +101,35 @@ public class JFrameTest extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)
                     .addComponent(jScrollPane3))
-                .addContainerGap(332, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addComponent(jXButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(209, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jXButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(164, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jXButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXButton1ActionPerformed
+        System.out.println("jXTable1.getSelectedRowCount()=" + jXTable1.getSelectedRowCount());
+        System.out.println("jXTable1.getSelectedColumnCount()=" + jXTable1.getSelectedColumnCount());
+        int rows = jXTable1.getModel().getRowCount();
+        for(int i = 0; i < rows; i++){
+            System.out.println("row[" + i + "].col[0].value=" + jXTable1.getModel().getValueAt(i, 0));
+        }
+    }//GEN-LAST:event_jXButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -133,6 +168,7 @@ public class JFrameTest extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private org.jdesktop.swingx.JXButton jXButton1;
     private org.jdesktop.swingx.JXTable jXTable1;
     private org.jdesktop.swingx.JXTable jXTable2;
     // End of variables declaration//GEN-END:variables

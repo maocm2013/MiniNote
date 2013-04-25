@@ -6,7 +6,7 @@ package com.malcolm.note.ui;
  */
 public class NoteTableModel extends BaseTableModel {
     public static final String[] columnNames = new String [] {
-        "选择", "序号", "名称", "备注", "截止日期", "优先级", "状态"
+        "选择","主键","序号", "名称", "备注", "截止日期", "优先级", "状态"
     };
     
     public NoteTableModel(){
@@ -17,6 +17,7 @@ public class NoteTableModel extends BaseTableModel {
 
     Class[] types = new Class[]{
         java.lang.Boolean.class, 
+        java.lang.String.class, 
         java.lang.String.class, 
         java.lang.String.class, 
         java.lang.String.class, 

@@ -26,6 +26,7 @@ public class NoteInfoAction {
                     int seq = 0;
                     NoteInfo note = list.get(i);
                     data[i][seq++] = null;
+                    data[i][seq++] = note.getPkId();
                     data[i][seq++] = String.valueOf(i + 1);
                     data[i][seq++] = note.getNoteName();
                     data[i][seq++] = note.getNoteComment();
