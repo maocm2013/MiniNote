@@ -4,6 +4,8 @@
  */
 package com.malcolm.note.ui;
 
+import com.malcolm.note.action.NoteInfoAction;
+
 /**
  *
  * @author user
@@ -33,7 +35,14 @@ public class MiniNoteFrame extends javax.swing.JFrame {
         finishBton = new javax.swing.JButton();
         searchBton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jXTable2 = new org.jdesktop.swingx.JXTable();
+        String[] title = new String [] {
+            "选择", "序号", "名称", "备注", "截止日期", "优先级", "状态"
+        };
+        //Object[][] data = new Object[][]{
+            //    {null,null,null,null,null,null,null}
+            //};
+        String[][] data = NoteInfoAction.getAllNoteTableData();
+        jXTable2 = new org.jdesktop.swingx.JXTable(data,title);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("桌面便签");
@@ -83,25 +92,6 @@ public class MiniNoteFrame extends javax.swing.JFrame {
         searchBton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         toolBar.add(searchBton);
 
-        jXTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "选择", "序号", "详细信息", "完成日期", "紧急程度", "重要程度", "状态"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
         jXTable2.setRowHeight(30);
         jScrollPane2.setViewportView(jXTable2);
 
