@@ -11,6 +11,8 @@ public class NoteTableModel extends BaseTableModel {
     
     public NoteTableModel(){
         super(columnNames);
+        //设置第1列可编辑，保证复选框可以选择
+        this.setCheckColumn(0);
     }
 
     Class[] types = new Class[]{

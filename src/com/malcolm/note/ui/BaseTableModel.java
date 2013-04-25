@@ -17,7 +17,10 @@ public class BaseTableModel extends AbstractTableModel{
      * ID
      */
     private static final long serialVersionUID = -1264704523326656387L;
-    protected int checkColumn = 0;
+    /**
+     * 第N列可编辑
+     */
+    protected int checkColumn = -1;
     protected List<String> columnNames;
     protected List<Object> contents;
 
