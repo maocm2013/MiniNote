@@ -2,6 +2,7 @@ package com.malcolm.note.action;
 
 import com.malcolm.note.dao.NoteInfoDao;
 import com.malcolm.note.domain.NoteInfo;
+import com.malcolm.note.util.DictEnum;
 import java.util.List;
 
 /**
@@ -13,9 +14,9 @@ public class NoteInfoAction {
      * 
      * @return 
      */
-    public static String[][] getAllNoteTableData(){
+    public static Object[][] getAllNoteTableData(){
         NoteInfoDao dao = new NoteInfoDao();
-        String[][] data = null;
+        Object[][] data = null;
         try {
             List<NoteInfo> list = dao.getAllNoteInfo();
             if(list != null && list.size() > 0){
@@ -28,8 +29,8 @@ public class NoteInfoAction {
                     data[i][seq++] = note.getNoteName();
                     data[i][seq++] = note.getNoteComment();
                     data[i][seq++] = note.getDeadLineDate();
-                    data[i][seq++] = note.getPriority();
-                    data[i][seq++] = note.getNoteState();
+                    data[i][seq++] = String.valueOf(DictEnum.NotePriority.dataMap.get(note.getPriority()));
+                    data[i][seq++] = String.valueOf(DictEnum.NoteState.dataMap.get(note.getNoteState()));
                 }    
             }
         } catch (Exception ex) {

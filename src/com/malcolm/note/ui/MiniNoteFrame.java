@@ -5,6 +5,8 @@
 package com.malcolm.note.ui;
 
 import com.malcolm.note.action.NoteInfoAction;
+import org.jdesktop.swingx.renderer.CheckBoxProvider;
+import org.jdesktop.swingx.renderer.DefaultTableRenderer;
 
 /**
  *
@@ -35,14 +37,11 @@ public class MiniNoteFrame extends javax.swing.JFrame {
         finishBton = new javax.swing.JButton();
         searchBton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        String[] title = new String [] {
-            "选择", "序号", "名称", "备注", "截止日期", "优先级", "状态"
-        };
-        //Object[][] data = new Object[][]{
-            //    {null,null,null,null,null,null,null}
-            //};
-        String[][] data = NoteInfoAction.getAllNoteTableData();
-        jXTable2 = new org.jdesktop.swingx.JXTable(data,title);
+        NoteTableModel model = new NoteTableModel();
+        //初始化显示数据
+        Object[][] datas = NoteInfoAction.getAllNoteTableData();
+        model.refreshContents(datas);
+        jXTable2 = new org.jdesktop.swingx.JXTable(model);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("桌面便签");

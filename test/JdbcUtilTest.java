@@ -1,6 +1,7 @@
 
 import com.malcolm.note.dao.NoteInfoDao;
 import com.malcolm.note.domain.NoteInfo;
+import com.malcolm.note.ui.BaseTableModel;
 import com.malcolm.note.util.JdbcUtil;
 import java.sql.SQLException;
 import java.util.List;

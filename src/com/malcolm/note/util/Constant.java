@@ -9,5 +9,5 @@ package com.malcolm.note.util;
  * @author user
  */
 public class Constant {
-    
+
 }
