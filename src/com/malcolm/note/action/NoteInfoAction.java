@@ -2,6 +2,7 @@ package com.malcolm.note.action;
 
 import com.malcolm.note.dao.NoteInfoDao;
 import com.malcolm.note.domain.NoteInfo;
+import com.malcolm.note.ui.NoteTableModel;
 import com.malcolm.note.util.DictEnum;
 import java.util.List;
 
@@ -20,11 +21,11 @@ public class NoteInfoAction {
         try {
             List<NoteInfo> list = dao.getAllNoteInfo();
             if(list != null && list.size() > 0){
-                data = new String[list.size() + 1][7];
+                data = new String[list.size()][NoteTableModel.columnNames.length];
                 for(int i = 0; i < list.size(); i++){
                     int seq = 0;
                     NoteInfo note = list.get(i);
-                    data[i][seq++] = "";
+                    data[i][seq++] = null;
                     data[i][seq++] = String.valueOf(i + 1);
                     data[i][seq++] = note.getNoteName();
                     data[i][seq++] = note.getNoteComment();
