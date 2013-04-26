@@ -5,6 +5,14 @@ package com.malcolm.note.util;
  * @author user
  */
 public class ComboxValue {
+    public ComboxValue(){
+        
+    }
+    
+    public ComboxValue(String name,String value){
+        this.name = name;
+        this.value = value;
+    }
 
     private String value;
     private String name;

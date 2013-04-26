@@ -8,9 +8,12 @@ import com.malcolm.note.action.NoteInfoAction;
 import com.malcolm.note.domain.NoteInfo;
 import com.malcolm.note.util.ComboxValue;
 import com.malcolm.note.util.DictEnum;
-import com.malcolm.note.util.UITools;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import com.malcolm.note.util.UITools;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.apache.commons.lang3.StringUtils;
 
@@ -23,8 +26,9 @@ public class EditNoteDialog extends javax.swing.JDialog {
     /**
      * Creates new form EditNoteDialog
      */
-    public EditNoteDialog(java.awt.Frame parent, boolean modal) {
+    public EditNoteDialog(java.awt.Frame parent, boolean modal,NoteInfo noteInfo) {
         super(parent, modal);
+        this.noteInfo = noteInfo;
         initComponents();
     }
 
@@ -61,9 +65,16 @@ public class EditNoteDialog extends javax.swing.JDialog {
         jXLabel1.setText("标题：");
         jXLabel1.setTextAlignment(org.jdesktop.swingx.JXLabel.TextAlignment.CENTER);
 
+        if(noteInfo != null){
+            fd_noteName.setText(noteInfo.getNoteName());
+        }
+
         jXLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jXLabel2.setText("备注：");
 
+        if(noteInfo != null){
+            fd_noteComment.setText(noteInfo.getNoteComment());
+        }
         fd_noteComment.setColumns(20);
         fd_noteComment.setRows(5);
         jScrollPane1.setViewportView(fd_noteComment);
@@ -72,16 +83,31 @@ public class EditNoteDialog extends javax.swing.JDialog {
         jXLabel3.setText("到达日期：");
 
         fd_deadLineDate.setFormats("yyyyMMdd");
+        try{
+            if(noteInfo != null){
+                SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+                fd_deadLineDate.setDate(format.parse(noteInfo.getDeadLineDate()));
+            }
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
 
         jXLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jXLabel4.setText("优先级：");
 
         fd_priority.setModel(UITools.getComboxValue(DictEnum.NotePriority.dataMap));
+        if(noteInfo != null){
+            fd_priority.setSelectedItem(new ComboxValue(String.valueOf(DictEnum.NotePriority.dataMap.get(noteInfo.getPriority())),noteInfo.getPriority()));
+        }
+        fd_priority.updateUI();
 
         jXLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jXLabel5.setText("状态：");
 
         fd_noteState.setModel(UITools.getComboxValue(DictEnum.NoteState.dataMap));
+        if(noteInfo != null){
+            fd_priority.setSelectedItem(new ComboxValue(String.valueOf(DictEnum.NoteState.dataMap.get(noteInfo.getPriority())),noteInfo.getNoteState()));
+        }
 
         jXButton1.setText("保   存");
         jXButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -170,13 +196,13 @@ public class EditNoteDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jXButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXButton2ActionPerformed
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jXButton2ActionPerformed
 
     private void jXButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXButton1ActionPerformed
         NoteInfo note = new NoteInfo();
         if(StringUtils.isEmpty(fd_noteName.getText())){
-            JOptionPane.showMessageDialog(null, "名称不能为空！");
+            JOptionPane.showMessageDialog(this, "名称不能为空！");
             //获取焦点
             fd_noteName.requestFocus();
             return;
@@ -185,7 +211,7 @@ public class EditNoteDialog extends javax.swing.JDialog {
         }
         
         if(StringUtils.isEmpty(fd_noteComment.getText())){
-            JOptionPane.showMessageDialog(null, "备注不能为空！");
+            JOptionPane.showMessageDialog(this, "备注不能为空！");
             //获取焦点
             fd_noteComment.requestFocus();
             return;
@@ -194,7 +220,7 @@ public class EditNoteDialog extends javax.swing.JDialog {
         }
         
         if(fd_deadLineDate.getDate() == null){
-            JOptionPane.showMessageDialog(null, "到达日期不能为空！");
+            JOptionPane.showMessageDialog(this, "到达日期不能为空！");
             //获取焦点
             fd_deadLineDate.requestFocus();
             return;
@@ -206,52 +232,25 @@ public class EditNoteDialog extends javax.swing.JDialog {
         note.setPriority(cm_priority.getValue());
         ComboxValue cm_noteState = (ComboxValue)fd_noteState.getSelectedItem();
         note.setNoteState(cm_noteState.getValue());
-        JOptionPane.showMessageDialog(null, note.toString());
+        
+        //如果具备便签信息则是修改操作
+        if(noteInfo != null){
+            note.setPkId(noteInfo.getPkId());
+        }
+        //JOptionPane.showMessageDialog(null, note.toString());
         NoteInfoAction.saveOrUpdateNoteInfo(note);
-        JOptionPane.showMessageDialog(null, "保存成功！");
+        JOptionPane.showMessageDialog(this, "保存成功！");
+        this.dispose();
+        
+        //刷新父界面中的表单数据
+        MiniNoteFrame frame = (MiniNoteFrame)this.getParent();
+        NoteTableModel model = (NoteTableModel)frame.getNoteTable().getModel();
+        model.refreshContents(NoteInfoAction.getAllNoteTableData());
+        //TODO:必须要重新设置一下model，否则刷新内容后界面无变化
+        frame.getNoteTable().setModel(model);
     }//GEN-LAST:event_jXButton1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EditNoteDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EditNoteDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EditNoteDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EditNoteDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                EditNoteDialog dialog = new EditNoteDialog(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+    private NoteInfo noteInfo;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jdesktop.swingx.JXDatePicker fd_deadLineDate;
     private org.jdesktop.swingx.JXTextArea fd_noteComment;

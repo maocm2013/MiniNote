@@ -1,8 +1,13 @@
 
+import com.alibaba.fastjson.JSON;
 import com.malcolm.note.action.NoteInfoAction;
 import com.malcolm.note.ui.NoteTableModel;
 import com.malcolm.note.util.UITools;
+import java.util.Vector;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
 import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.JXTable.BooleanEditor;
 import org.jdesktop.swingx.renderer.DefaultTableRenderer;
@@ -51,7 +56,6 @@ public class JFrameTest extends javax.swing.JFrame {
         //第一列隐藏
         UITools.hideColumn(jXTable1, 1);
         jScrollPane2.setViewportView(jXTable1);
-        jXTable1.getColumnModel().getColumn(0).setResizable(false);
 
         jXTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -123,14 +127,10 @@ public class JFrameTest extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jXButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXButton1ActionPerformed
-        System.out.println("jXTable1.getSelectedRowCount()=" + jXTable1.getSelectedRowCount());
-        System.out.println("jXTable1.getSelectedColumnCount()=" + jXTable1.getSelectedColumnCount());
-        int rows = jXTable1.getModel().getRowCount();
-        for(int i = 0; i < rows; i++){
-            System.out.println("row[" + i + "].col[0].value=" + jXTable1.getModel().getValueAt(i, 0));
-        }
+        JOptionPane.showMessageDialog(rootPane, "选中行数=" + UITools.getCheckedRows(jXTable1));
+        JOptionPane.showMessageDialog(rootPane,"选中记录主键=" + JSON.toJSONString(UITools.getCheckedRowsId(jXTable1)));
     }//GEN-LAST:event_jXButton1ActionPerformed
-
+    
     /**
      * @param args the command line arguments
      */

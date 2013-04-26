@@ -124,6 +124,9 @@
       </Properties>
     </Component>
     <Component class="org.jdesktop.swingx.JXTextField" name="fd_noteName">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="if(noteInfo != null){&#xa;    fd_noteName.setText(noteInfo.getNoteName());&#xa;}"/>
+      </AuxValues>
     </Component>
     <Component class="org.jdesktop.swingx.JXLabel" name="jXLabel2">
       <Properties>
@@ -143,6 +146,9 @@
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="if(noteInfo != null){&#xa;    fd_noteComment.setText(noteInfo.getNoteComment());&#xa;}"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
@@ -158,6 +164,9 @@
           <Connection code="&quot;yyyyMMdd&quot;" type="code"/>
         </Property>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="try{&#xa;    if(noteInfo != null){&#xa;        SimpleDateFormat format = new SimpleDateFormat(&quot;yyyyMMdd&quot;);&#xa;        fd_deadLineDate.setDate(format.parse(noteInfo.getDeadLineDate()));&#xa;    }&#xa;}catch(Exception ex){&#xa;    ex.printStackTrace();&#xa;}"/>
+      </AuxValues>
     </Component>
     <Component class="org.jdesktop.swingx.JXLabel" name="jXLabel4">
       <Properties>
@@ -171,6 +180,9 @@
           <Connection code="UITools.getComboxValue(DictEnum.NotePriority.dataMap)" type="code"/>
         </Property>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="if(noteInfo != null){&#xa;    fd_priority.setSelectedItem(new ComboxValue(String.valueOf(DictEnum.NotePriority.dataMap.get(noteInfo.getPriority())),noteInfo.getPriority()));&#xa;}&#xa;fd_priority.updateUI();"/>
+      </AuxValues>
     </Component>
     <Component class="org.jdesktop.swingx.JXLabel" name="jXLabel5">
       <Properties>
@@ -184,6 +196,9 @@
           <Connection code="UITools.getComboxValue(DictEnum.NoteState.dataMap)" type="code"/>
         </Property>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="if(noteInfo != null){&#xa;    fd_priority.setSelectedItem(new ComboxValue(String.valueOf(DictEnum.NoteState.dataMap.get(noteInfo.getPriority())),noteInfo.getNoteState()));&#xa;}"/>
+      </AuxValues>
     </Component>
     <Component class="org.jdesktop.swingx.JXButton" name="jXButton1">
       <Properties>

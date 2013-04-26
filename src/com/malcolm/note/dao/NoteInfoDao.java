@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.UUID;
 import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.lang3.StringUtils;
 
@@ -25,7 +26,9 @@ public class NoteInfoDao {
 
     /**
      * 获取所有便签信息
-     * @return @throws SQLException
+     *
+     * @return
+     * @throws SQLException
      * @throws ClassNotFoundException
      */
     public List getAllNoteInfo() throws SQLException, ClassNotFoundException {
@@ -44,10 +47,33 @@ public class NoteInfoDao {
     }
 
     /**
+     * 根据主键获取便签信息
+     *
+     * @return
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
+    public NoteInfo getNoteInfoById(String pkId) throws SQLException, ClassNotFoundException {
+        Connection conn = null;
+        QueryRunner queryRunner = null;
+        NoteInfo noteInfo = null;
+        String sql = "select pk_id pkId,note_name noteName,note_comment noteComment,dead_line_date deadLineDate,priority priority,note_state noteState from note_info where pk_id=?";
+        try {
+            conn = JdbcUtil.getConn();
+            queryRunner = new QueryRunner();
+            noteInfo = (NoteInfo) queryRunner.query(conn, sql, new BeanHandler(NoteInfo.class),pkId);
+        } finally {
+            DbUtils.close(conn);
+        }
+        return noteInfo;
+    }
+
+    /**
      * 保存或更新便签信息（根据PK_ID是否为空来判断）
+     *
      * @param noteInfo
      * @throws ClassNotFoundException
-     * @throws SQLException 
+     * @throws SQLException
      */
     public void saveOrUpdateNoteInfo(NoteInfo noteInfo) throws ClassNotFoundException, SQLException {
         Connection conn = null;
@@ -59,9 +85,9 @@ public class NoteInfoDao {
             queryRunner = new QueryRunner();
             Object[] params = new Object[6];
             int seq = 0;
-            if(StringUtils.isNotEmpty(noteInfo.getPkId())){
+            if (StringUtils.isNotEmpty(noteInfo.getPkId())) {
                 params[seq++] = noteInfo.getPkId();
-            }else{
+            } else {
                 params[seq++] = UITools.generateUUID();
             }
             params[seq++] = noteInfo.getNoteName();
@@ -69,9 +95,9 @@ public class NoteInfoDao {
             params[seq++] = noteInfo.getDeadLineDate();
             params[seq++] = noteInfo.getPriority();
             params[seq++] = noteInfo.getNoteState();
-            if(StringUtils.isNotEmpty(noteInfo.getPkId())){
+            if (StringUtils.isNotEmpty(noteInfo.getPkId())) {
                 queryRunner.update(conn, sql_update, params);
-            }else{
+            } else {
                 queryRunner.update(conn, sql_insert, params);
             }
         } finally {

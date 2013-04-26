@@ -1,7 +1,12 @@
 package com.malcolm.note.ui;
 
+import com.alibaba.fastjson.JSON;
 import com.malcolm.note.action.NoteInfoAction;
+import com.malcolm.note.domain.NoteInfo;
 import com.malcolm.note.util.UITools;
+import java.util.Vector;
+import javax.swing.JOptionPane;
+import org.jdesktop.swingx.JXTable;
 
 /**
  *
@@ -36,7 +41,7 @@ public class MiniNoteFrame extends javax.swing.JFrame {
         //初始化显示数据
         Object[][] datas = NoteInfoAction.getAllNoteTableData();
         model.refreshContents(datas);
-        jXTable2 = new org.jdesktop.swingx.JXTable(model);
+        noteTable = new org.jdesktop.swingx.JXTable(model);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("桌面便签");
@@ -52,6 +57,11 @@ public class MiniNoteFrame extends javax.swing.JFrame {
         addBton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         addBton.setPreferredSize(new java.awt.Dimension(83, 60));
         addBton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        addBton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addBtonActionPerformed(evt);
+            }
+        });
         toolBar.add(addBton);
 
         delBton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/delete.png"))); // NOI18N
@@ -68,6 +78,11 @@ public class MiniNoteFrame extends javax.swing.JFrame {
         editBton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         editBton.setPreferredSize(new java.awt.Dimension(83, 60));
         editBton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        editBton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editBtonActionPerformed(evt);
+            }
+        });
         toolBar.add(editBton);
 
         finishBton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/finish.png"))); // NOI18N
@@ -87,9 +102,9 @@ public class MiniNoteFrame extends javax.swing.JFrame {
         toolBar.add(searchBton);
 
         //隐藏第一列（主键）
-        UITools.hideColumn(jXTable2, 1);
-        jXTable2.setRowHeight(30);
-        jScrollPane2.setViewportView(jXTable2);
+        UITools.hideColumn(noteTable, 1);
+        noteTable.setRowHeight(30);
+        jScrollPane2.setViewportView(noteTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -111,6 +126,26 @@ public class MiniNoteFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void addBtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtonActionPerformed
+        EditNoteDialog dialog = new EditNoteDialog(this, true, null);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_addBtonActionPerformed
+
+    private void editBtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtonActionPerformed
+        if (UITools.getCheckedRows(noteTable) != 1) {
+            JOptionPane.showMessageDialog(rootPane, "请确认您选择了一条记录！");
+            return;
+        } else {
+            Vector v = UITools.getCheckedRowsId(noteTable);
+            String pkId = v.get(0).toString();
+            JOptionPane.showMessageDialog(rootPane, "便签主键=" + pkId);
+            NoteInfo noteInfo = NoteInfoAction.getNoteInfoById(pkId);
+            JOptionPane.showMessageDialog(rootPane, "便签信息=" + JSON.toJSONString(noteInfo));
+            EditNoteDialog dialog = new EditNoteDialog(this, true, noteInfo);
+            dialog.setVisible(true);
+        }
+    }//GEN-LAST:event_editBtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -146,13 +181,17 @@ public class MiniNoteFrame extends javax.swing.JFrame {
             }
         });
     }
+
+    public JXTable getNoteTable() {
+        return noteTable;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addBton;
     private javax.swing.JButton delBton;
     private javax.swing.JButton editBton;
     private javax.swing.JButton finishBton;
     private javax.swing.JScrollPane jScrollPane2;
-    private org.jdesktop.swingx.JXTable jXTable2;
+    private org.jdesktop.swingx.JXTable noteTable;
     private javax.swing.JButton searchBton;
     private javax.swing.JToolBar toolBar;
     // End of variables declaration//GEN-END:variables
