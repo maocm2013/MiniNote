@@ -40,4 +40,17 @@ public class NoteInfoAction {
         } 
         return data;
     }
+    
+    /**
+     * 保存或新增便签信息
+     * @param noteInfo 
+     */
+    public static void saveOrUpdateNoteInfo(NoteInfo noteInfo){
+        NoteInfoDao dao = new NoteInfoDao();
+        try{
+            dao.saveOrUpdateNoteInfo(noteInfo);
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+    }
 }

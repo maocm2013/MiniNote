@@ -1,13 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.malcolm.note.ui;
 
 import com.malcolm.note.action.NoteInfoAction;
 import com.malcolm.note.util.UITools;
-import org.jdesktop.swingx.renderer.CheckBoxProvider;
-import org.jdesktop.swingx.renderer.DefaultTableRenderer;
 
 /**
  *

@@ -4,8 +4,15 @@
  */
 package com.malcolm.note.ui;
 
+import com.malcolm.note.action.NoteInfoAction;
+import com.malcolm.note.domain.NoteInfo;
+import com.malcolm.note.util.ComboxValue;
 import com.malcolm.note.util.DictEnum;
 import com.malcolm.note.util.UITools;
+import org.apache.commons.lang3.time.DateFormatUtils;
+import com.malcolm.note.util.UITools;
+import javax.swing.JOptionPane;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -32,16 +39,16 @@ public class EditNoteDialog extends javax.swing.JDialog {
 
         jXTitledSeparator1 = new org.jdesktop.swingx.JXTitledSeparator();
         jXLabel1 = new org.jdesktop.swingx.JXLabel();
-        jXTextField1 = new org.jdesktop.swingx.JXTextField();
+        fd_noteName = new org.jdesktop.swingx.JXTextField();
         jXLabel2 = new org.jdesktop.swingx.JXLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jXTextArea1 = new org.jdesktop.swingx.JXTextArea();
+        fd_noteComment = new org.jdesktop.swingx.JXTextArea();
         jXLabel3 = new org.jdesktop.swingx.JXLabel();
-        jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
+        fd_deadLineDate = new org.jdesktop.swingx.JXDatePicker();
         jXLabel4 = new org.jdesktop.swingx.JXLabel();
-        jXComboBox1 = new org.jdesktop.swingx.JXComboBox();
+        fd_priority = new org.jdesktop.swingx.JXComboBox();
         jXLabel5 = new org.jdesktop.swingx.JXLabel();
-        jXComboBox2 = new org.jdesktop.swingx.JXComboBox();
+        fd_noteState = new org.jdesktop.swingx.JXComboBox();
         jXButton1 = new org.jdesktop.swingx.JXButton();
         jXButton2 = new org.jdesktop.swingx.JXButton();
 
@@ -52,32 +59,36 @@ public class EditNoteDialog extends javax.swing.JDialog {
 
         jXLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jXLabel1.setText("标题：");
-        jXLabel1.setFont(new java.awt.Font("黑体", 0, 14)); // NOI18N
         jXLabel1.setTextAlignment(org.jdesktop.swingx.JXLabel.TextAlignment.CENTER);
 
         jXLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jXLabel2.setText("备注：");
 
-        jXTextArea1.setColumns(20);
-        jXTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jXTextArea1);
+        fd_noteComment.setColumns(20);
+        fd_noteComment.setRows(5);
+        jScrollPane1.setViewportView(fd_noteComment);
 
         jXLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jXLabel3.setText("到达日期：");
 
-        jXDatePicker1.setFormats("yyyyMMdd");
+        fd_deadLineDate.setFormats("yyyyMMdd");
 
         jXLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jXLabel4.setText("优先级：");
 
-        jXComboBox1.setModel(UITools.getComboxValue(DictEnum.NotePriority.dataMap));
+        fd_priority.setModel(UITools.getComboxValue(DictEnum.NotePriority.dataMap));
 
         jXLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jXLabel5.setText("状态：");
 
-        jXComboBox2.setModel(UITools.getComboxValue(DictEnum.NoteState.dataMap));
+        fd_noteState.setModel(UITools.getComboxValue(DictEnum.NoteState.dataMap));
 
         jXButton1.setText("保   存");
+        jXButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jXButton1ActionPerformed(evt);
+            }
+        });
 
         jXButton2.setText("取  消");
         jXButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -97,7 +108,7 @@ public class EditNoteDialog extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jXLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jXTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(fd_noteName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jXLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -106,15 +117,15 @@ public class EditNoteDialog extends javax.swing.JDialog {
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jXLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(fd_deadLineDate, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jXLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jXComboBox1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(fd_priority, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jXLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jXComboBox2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(fd_noteState, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -131,7 +142,7 @@ public class EditNoteDialog extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jXLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jXTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fd_noteName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jXLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -139,15 +150,15 @@ public class EditNoteDialog extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jXLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fd_deadLineDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jXLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jXComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fd_priority, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jXLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jXComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fd_noteState, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jXButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -161,6 +172,44 @@ public class EditNoteDialog extends javax.swing.JDialog {
     private void jXButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXButton2ActionPerformed
         this.setVisible(false);
     }//GEN-LAST:event_jXButton2ActionPerformed
+
+    private void jXButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXButton1ActionPerformed
+        NoteInfo note = new NoteInfo();
+        if(StringUtils.isEmpty(fd_noteName.getText())){
+            JOptionPane.showMessageDialog(null, "名称不能为空！");
+            //获取焦点
+            fd_noteName.requestFocus();
+            return;
+        }else{
+            note.setNoteName(fd_noteName.getText().trim());
+        }
+        
+        if(StringUtils.isEmpty(fd_noteComment.getText())){
+            JOptionPane.showMessageDialog(null, "备注不能为空！");
+            //获取焦点
+            fd_noteComment.requestFocus();
+            return;
+        }else{
+            note.setNoteComment(fd_noteComment.getText().trim());
+        }
+        
+        if(fd_deadLineDate.getDate() == null){
+            JOptionPane.showMessageDialog(null, "到达日期不能为空！");
+            //获取焦点
+            fd_deadLineDate.requestFocus();
+            return;
+        }else{
+            note.setDeadLineDate(DateFormatUtils.format(fd_deadLineDate.getDate(), "yyyyMMdd"));
+        }
+        
+        ComboxValue cm_priority = (ComboxValue)fd_priority.getSelectedItem();
+        note.setPriority(cm_priority.getValue());
+        ComboxValue cm_noteState = (ComboxValue)fd_noteState.getSelectedItem();
+        note.setNoteState(cm_noteState.getValue());
+        JOptionPane.showMessageDialog(null, note.toString());
+        NoteInfoAction.saveOrUpdateNoteInfo(note);
+        JOptionPane.showMessageDialog(null, "保存成功！");
+    }//GEN-LAST:event_jXButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -204,19 +253,19 @@ public class EditNoteDialog extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private org.jdesktop.swingx.JXDatePicker fd_deadLineDate;
+    private org.jdesktop.swingx.JXTextArea fd_noteComment;
+    private org.jdesktop.swingx.JXTextField fd_noteName;
+    private org.jdesktop.swingx.JXComboBox fd_noteState;
+    private org.jdesktop.swingx.JXComboBox fd_priority;
     private javax.swing.JScrollPane jScrollPane1;
     private org.jdesktop.swingx.JXButton jXButton1;
     private org.jdesktop.swingx.JXButton jXButton2;
-    private org.jdesktop.swingx.JXComboBox jXComboBox1;
-    private org.jdesktop.swingx.JXComboBox jXComboBox2;
-    private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
     private org.jdesktop.swingx.JXLabel jXLabel1;
     private org.jdesktop.swingx.JXLabel jXLabel2;
     private org.jdesktop.swingx.JXLabel jXLabel3;
     private org.jdesktop.swingx.JXLabel jXLabel4;
     private org.jdesktop.swingx.JXLabel jXLabel5;
-    private org.jdesktop.swingx.JXTextArea jXTextArea1;
-    private org.jdesktop.swingx.JXTextField jXTextField1;
     private org.jdesktop.swingx.JXTitledSeparator jXTitledSeparator1;
     // End of variables declaration//GEN-END:variables
 }

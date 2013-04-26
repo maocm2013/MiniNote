@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.UUID;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
@@ -17,6 +18,13 @@ import javax.swing.table.TableColumn;
  * @author user
  */
 public class UITools {
+    /**
+     * 生成32位UUID
+     * @return 
+     */
+    public static String generateUUID(){
+        return UUID.randomUUID().toString().replaceAll("-", "").toUpperCase();
+    }
 
     /**
      * 隐藏table中的某一列
@@ -52,33 +60,5 @@ public class UITools {
             i++;
         }
         return new DefaultComboBoxModel(values);
-    }
-    
-            
-    static class ComboxValue{
-        private String value;
-        private String name;
-
-        public String getValue() {
-            return value;
-        }
-
-        public void setValue(String value) {
-            this.value = value;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        @Override
-        public String toString() {
-            return name;
-        }
-        
     }
 }

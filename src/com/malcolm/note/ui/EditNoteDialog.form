@@ -29,7 +29,7 @@
                   <Group type="102" attributes="0">
                       <Component id="jXLabel1" min="-2" pref="66" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jXTextField1" max="32767" attributes="0"/>
+                      <Component id="fd_noteName" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jXLabel2" min="-2" pref="66" max="-2" attributes="0"/>
@@ -40,17 +40,17 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jXLabel3" min="-2" pref="66" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jXDatePicker1" min="-2" pref="116" max="-2" attributes="0"/>
+                          <Component id="fd_deadLineDate" min="-2" pref="116" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jXLabel4" min="-2" pref="66" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jXComboBox1" max="32767" attributes="0"/>
+                          <Component id="fd_priority" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jXLabel5" min="-2" pref="66" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jXComboBox2" max="32767" attributes="0"/>
+                          <Component id="fd_noteState" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -73,7 +73,7 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jXLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jXTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="fd_noteName" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -83,17 +83,17 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jXLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jXDatePicker1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="fd_deadLineDate" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jXLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jXComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="fd_priority" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jXLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jXComboBox2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="fd_noteState" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -118,15 +118,12 @@
       <Properties>
         <Property name="horizontalAlignment" type="int" value="4"/>
         <Property name="text" type="java.lang.String" value="&#x6807;&#x9898;&#xff1a;"/>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="&#x9ed1;&#x4f53;" size="14" style="0"/>
-        </Property>
         <Property name="textAlignment" type="org.jdesktop.swingx.JXLabel$TextAlignment" editor="org.netbeans.modules.form.editors.EnumEditor">
           <Value id="CENTER"/>
         </Property>
       </Properties>
     </Component>
-    <Component class="org.jdesktop.swingx.JXTextField" name="jXTextField1">
+    <Component class="org.jdesktop.swingx.JXTextField" name="fd_noteName">
     </Component>
     <Component class="org.jdesktop.swingx.JXLabel" name="jXLabel2">
       <Properties>
@@ -141,7 +138,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="org.jdesktop.swingx.JXTextArea" name="jXTextArea1">
+        <Component class="org.jdesktop.swingx.JXTextArea" name="fd_noteComment">
           <Properties>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
@@ -155,7 +152,7 @@
         <Property name="text" type="java.lang.String" value="&#x5230;&#x8fbe;&#x65e5;&#x671f;&#xff1a;"/>
       </Properties>
     </Component>
-    <Component class="org.jdesktop.swingx.JXDatePicker" name="jXDatePicker1">
+    <Component class="org.jdesktop.swingx.JXDatePicker" name="fd_deadLineDate">
       <Properties>
         <Property name="formats" type="[Ljava.text.DateFormat;" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="&quot;yyyyMMdd&quot;" type="code"/>
@@ -168,7 +165,7 @@
         <Property name="text" type="java.lang.String" value="&#x4f18;&#x5148;&#x7ea7;&#xff1a;"/>
       </Properties>
     </Component>
-    <Component class="org.jdesktop.swingx.JXComboBox" name="jXComboBox1">
+    <Component class="org.jdesktop.swingx.JXComboBox" name="fd_priority">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="UITools.getComboxValue(DictEnum.NotePriority.dataMap)" type="code"/>
@@ -181,7 +178,7 @@
         <Property name="text" type="java.lang.String" value="&#x72b6;&#x6001;&#xff1a;"/>
       </Properties>
     </Component>
-    <Component class="org.jdesktop.swingx.JXComboBox" name="jXComboBox2">
+    <Component class="org.jdesktop.swingx.JXComboBox" name="fd_noteState">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="UITools.getComboxValue(DictEnum.NoteState.dataMap)" type="code"/>
@@ -192,6 +189,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="&#x4fdd;   &#x5b58;"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jXButton1ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="org.jdesktop.swingx.JXButton" name="jXButton2">
       <Properties>
