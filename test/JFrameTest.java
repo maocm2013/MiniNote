@@ -2,6 +2,8 @@
 import com.alibaba.fastjson.JSON;
 import com.malcolm.note.action.NoteInfoAction;
 import com.malcolm.note.ui.NoteTableModel;
+import com.malcolm.note.util.ComboxValue;
+import com.malcolm.note.util.DictEnum;
 import com.malcolm.note.util.UITools;
 import java.util.Vector;
 import javax.swing.JOptionPane;
@@ -45,6 +47,9 @@ public class JFrameTest extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jXTable2 = new org.jdesktop.swingx.JXTable();
         jXButton1 = new org.jdesktop.swingx.JXButton();
+        jXComboBox1 = new org.jdesktop.swingx.JXComboBox();
+        jXLabel1 = new org.jdesktop.swingx.JXLabel();
+        jXButton2 = new org.jdesktop.swingx.JXButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -96,6 +101,17 @@ public class JFrameTest extends javax.swing.JFrame {
             }
         });
 
+        jXComboBox1.setModel(UITools.getComboxValue(DictEnum.NotePriority.dataMap));
+
+        jXLabel1.setText("下拉列表：");
+
+        jXButton2.setText("改变选择项");
+        jXButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jXButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -105,14 +121,33 @@ public class JFrameTest extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)
                     .addComponent(jScrollPane3))
-                .addGap(28, 28, 28)
-                .addComponent(jXButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(209, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(jXButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jXButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jXLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jXComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(105, 105, 105))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(jXButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jXComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jXLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
@@ -130,6 +165,11 @@ public class JFrameTest extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(rootPane, "选中行数=" + UITools.getCheckedRows(jXTable1));
         JOptionPane.showMessageDialog(rootPane,"选中记录主键=" + JSON.toJSONString(UITools.getCheckedRowsId(jXTable1)));
     }//GEN-LAST:event_jXButton1ActionPerformed
+
+    private void jXButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXButton2ActionPerformed
+        jXComboBox1.getModel().setSelectedItem(new ComboxValue("高","H"));
+        //jXComboBox1.updateUI();
+    }//GEN-LAST:event_jXButton2ActionPerformed
     
     /**
      * @param args the command line arguments
@@ -169,6 +209,9 @@ public class JFrameTest extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private org.jdesktop.swingx.JXButton jXButton1;
+    private org.jdesktop.swingx.JXButton jXButton2;
+    private org.jdesktop.swingx.JXComboBox jXComboBox1;
+    private org.jdesktop.swingx.JXLabel jXLabel1;
     private org.jdesktop.swingx.JXTable jXTable1;
     private org.jdesktop.swingx.JXTable jXTable2;
     // End of variables declaration//GEN-END:variables

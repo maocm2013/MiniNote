@@ -181,7 +181,7 @@
         </Property>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="if(noteInfo != null){&#xa;    fd_priority.setSelectedItem(new ComboxValue(String.valueOf(DictEnum.NotePriority.dataMap.get(noteInfo.getPriority())),noteInfo.getPriority()));&#xa;}&#xa;fd_priority.updateUI();"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="if(noteInfo != null){&#xa;    fd_priority.getModel().setSelectedItem(new ComboxValue(String.valueOf(DictEnum.NotePriority.dataMap.get(noteInfo.getPriority())),noteInfo.getPriority()));&#xa;}"/>
       </AuxValues>
     </Component>
     <Component class="org.jdesktop.swingx.JXLabel" name="jXLabel5">
@@ -197,7 +197,7 @@
         </Property>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="if(noteInfo != null){&#xa;    fd_priority.setSelectedItem(new ComboxValue(String.valueOf(DictEnum.NoteState.dataMap.get(noteInfo.getPriority())),noteInfo.getNoteState()));&#xa;}"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="if(noteInfo != null){&#xa;    fd_noteState.getModel().setSelectedItem(new ComboxValue(String.valueOf(DictEnum.NoteState.dataMap.get(noteInfo.getNoteState())),noteInfo.getNoteState()));&#xa;}"/>
       </AuxValues>
     </Component>
     <Component class="org.jdesktop.swingx.JXButton" name="jXButton1">

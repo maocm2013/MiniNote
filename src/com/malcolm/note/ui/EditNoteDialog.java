@@ -97,16 +97,15 @@ public class EditNoteDialog extends javax.swing.JDialog {
 
         fd_priority.setModel(UITools.getComboxValue(DictEnum.NotePriority.dataMap));
         if(noteInfo != null){
-            fd_priority.setSelectedItem(new ComboxValue(String.valueOf(DictEnum.NotePriority.dataMap.get(noteInfo.getPriority())),noteInfo.getPriority()));
+            fd_priority.getModel().setSelectedItem(new ComboxValue(String.valueOf(DictEnum.NotePriority.dataMap.get(noteInfo.getPriority())),noteInfo.getPriority()));
         }
-        fd_priority.updateUI();
 
         jXLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jXLabel5.setText("状态：");
 
         fd_noteState.setModel(UITools.getComboxValue(DictEnum.NoteState.dataMap));
         if(noteInfo != null){
-            fd_priority.setSelectedItem(new ComboxValue(String.valueOf(DictEnum.NoteState.dataMap.get(noteInfo.getPriority())),noteInfo.getNoteState()));
+            fd_noteState.getModel().setSelectedItem(new ComboxValue(String.valueOf(DictEnum.NoteState.dataMap.get(noteInfo.getNoteState())),noteInfo.getNoteState()));
         }
 
         jXButton1.setText("保   存");
@@ -237,7 +236,7 @@ public class EditNoteDialog extends javax.swing.JDialog {
         if(noteInfo != null){
             note.setPkId(noteInfo.getPkId());
         }
-        //JOptionPane.showMessageDialog(null, note.toString());
+        JOptionPane.showMessageDialog(null, note.toString());
         NoteInfoAction.saveOrUpdateNoteInfo(note);
         JOptionPane.showMessageDialog(this, "保存成功！");
         this.dispose();

@@ -1,6 +1,5 @@
 package com.malcolm.note.ui;
 
-import com.alibaba.fastjson.JSON;
 import com.malcolm.note.action.NoteInfoAction;
 import com.malcolm.note.domain.NoteInfo;
 import com.malcolm.note.util.UITools;
@@ -120,7 +119,7 @@ public class MiniNoteFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(toolBar, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -139,9 +138,9 @@ public class MiniNoteFrame extends javax.swing.JFrame {
         } else {
             Vector v = UITools.getCheckedRowsId(noteTable);
             String pkId = v.get(0).toString();
-            JOptionPane.showMessageDialog(rootPane, "便签主键=" + pkId);
+            //JOptionPane.showMessageDialog(rootPane, "便签主键=" + pkId);
             NoteInfo noteInfo = NoteInfoAction.getNoteInfoById(pkId);
-            JOptionPane.showMessageDialog(rootPane, "便签信息=" + JSON.toJSONString(noteInfo));
+            //JOptionPane.showMessageDialog(rootPane, "便签信息=" + JSON.toJSONString(noteInfo));
             EditNoteDialog dialog = new EditNoteDialog(this, true, noteInfo);
             dialog.setVisible(true);
         }
