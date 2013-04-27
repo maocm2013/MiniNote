@@ -9,9 +9,7 @@ import com.malcolm.note.util.JdbcUtil;
 import com.malcolm.note.util.UITools;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
@@ -78,26 +76,23 @@ public class NoteInfoDao {
     public void saveOrUpdateNoteInfo(NoteInfo noteInfo) throws ClassNotFoundException, SQLException {
         Connection conn = null;
         QueryRunner queryRunner = null;
-        String sql_insert = "insert into note_info(pk_id,note_name,note_comment,dead_line_date,priority,note_state)values(?,?,?,?,?,?)";
+        String sql_insert = "insert into note_info(note_name,note_comment,dead_line_date,priority,note_state,pk_id)values(?,?,?,?,?,?)";
         String sql_update = "update note_info set note_name=?,note_comment=?,dead_line_date=?,priority=?,note_state=? where pk_id=?";
         try {
             conn = JdbcUtil.getConn();
             queryRunner = new QueryRunner();
             Object[] params = new Object[6];
             int seq = 0;
-            if (StringUtils.isNotEmpty(noteInfo.getPkId())) {
-                params[seq++] = noteInfo.getPkId();
-            } else {
-                params[seq++] = UITools.generateUUID();
-            }
             params[seq++] = noteInfo.getNoteName();
             params[seq++] = noteInfo.getNoteComment();
             params[seq++] = noteInfo.getDeadLineDate();
             params[seq++] = noteInfo.getPriority();
             params[seq++] = noteInfo.getNoteState();
             if (StringUtils.isNotEmpty(noteInfo.getPkId())) {
+                params[seq++] = noteInfo.getPkId();
                 queryRunner.update(conn, sql_update, params);
             } else {
+                params[seq++] = UITools.generateUUID();
                 queryRunner.update(conn, sql_insert, params);
             }
         } finally {
