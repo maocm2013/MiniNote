@@ -4,6 +4,7 @@ import com.malcolm.note.action.NoteInfoAction;
 import com.malcolm.note.domain.NoteInfo;
 import com.malcolm.note.util.UITools;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableColumnModel;
 
@@ -108,6 +109,11 @@ public class MiniNoteFrame extends javax.swing.JFrame {
         searchBton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         searchBton.setPreferredSize(new java.awt.Dimension(83, 60));
         searchBton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        searchBton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchBtonActionPerformed(evt);
+            }
+        });
         toolBar.add(searchBton);
 
         //隐藏第一列（主键）
@@ -188,6 +194,11 @@ public class MiniNoteFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_finishBtonActionPerformed
 
+    private void searchBtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtonActionPerformed
+        QueryNoteDialog dialog = new QueryNoteDialog(this, true, null);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_searchBtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -229,6 +240,22 @@ public class MiniNoteFrame extends javax.swing.JFrame {
     public void refreshNoteTableDatas() {
         NoteTableModel model = (NoteTableModel) noteTable.getModel();
         model.refreshContents(NoteInfoAction.getAllNoteTableData());
+        //TODO:必须要重新设置一下model，否则刷新内容后界面无变化
+        noteTable.setModel(model);
+    }
+
+    /**
+     * 根据条件查询便签信息
+     * @param noteName
+     * @param noteComment
+     * @param deadLineDateStart
+     * @param deadLineDateEnd
+     * @param priority
+     * @param noteState 
+     */
+    public void refreshNoteTableDatas(String noteName,String noteComment,Date deadLineDateStart,Date deadLineDateEnd,String priority,String noteState) {
+        NoteTableModel model = (NoteTableModel) noteTable.getModel();
+        model.refreshContents(NoteInfoAction.getAllNoteTableData(noteName,noteComment,deadLineDateStart,deadLineDateEnd,priority,noteState));
         //TODO:必须要重新设置一下model，否则刷新内容后界面无变化
         noteTable.setModel(model);
     }

@@ -5,6 +5,7 @@ import com.malcolm.note.domain.NoteInfo;
 import com.malcolm.note.ui.NoteTableModel;
 import com.malcolm.note.util.DictEnum;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,22 +25,51 @@ public class NoteInfoAction {
         try {
             List<NoteInfo> list = dao.getAllNoteInfo();
             if (list != null && list.size() > 0) {
-                data = new String[list.size()][NoteTableModel.columnNames.length];
-                for (int i = 0; i < list.size(); i++) {
-                    int seq = 0;
-                    NoteInfo note = list.get(i);
-                    data[i][seq++] = null;
-                    data[i][seq++] = note.getPkId();
-                    data[i][seq++] = String.valueOf(i + 1);
-                    data[i][seq++] = note.getNoteName();
-                    data[i][seq++] = note.getNoteComment();
-                    data[i][seq++] = note.getDeadLineDate();
-                    data[i][seq++] = String.valueOf(DictEnum.NotePriority.dataMap.get(note.getPriority()));
-                    data[i][seq++] = String.valueOf(DictEnum.NoteState.dataMap.get(note.getNoteState()));
-                }
+                data = List2TableData(list);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
+        }
+        return data;
+    }
+
+    /**
+     * 根据条件查询便签信息
+     *
+     * @param noteName
+     * @param noteComment
+     * @param deadLineDateStart
+     * @param deadLineDateEnd
+     * @param priority
+     * @param noteState
+     * @return
+     */
+    public static Object[][] getAllNoteTableData(String noteName, String noteComment, Date deadLineDateStart, Date deadLineDateEnd, String priority, String noteState) {
+        Object[][] data = null;
+        try {
+            List<NoteInfo> list = dao.getAllNoteInfo(noteName, noteComment, deadLineDateStart, deadLineDateEnd, priority, noteState);
+            if (list != null && list.size() > 0) {
+                data = List2TableData(list);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return data;
+    }
+
+    private static Object[][] List2TableData(List<NoteInfo> list) {
+        Object[][] data = new String[list.size()][NoteTableModel.columnNames.length];
+        for (int i = 0; i < list.size(); i++) {
+            int seq = 0;
+            NoteInfo note = list.get(i);
+            data[i][seq++] = null;
+            data[i][seq++] = note.getPkId();
+            data[i][seq++] = String.valueOf(i + 1);
+            data[i][seq++] = note.getNoteName();
+            data[i][seq++] = note.getNoteComment();
+            data[i][seq++] = note.getDeadLineDate();
+            data[i][seq++] = String.valueOf(DictEnum.NotePriority.dataMap.get(note.getPriority()));
+            data[i][seq++] = String.valueOf(DictEnum.NoteState.dataMap.get(note.getNoteState()));
         }
         return data;
     }

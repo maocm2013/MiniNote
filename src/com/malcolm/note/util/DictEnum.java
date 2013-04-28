@@ -19,24 +19,24 @@ public class DictEnum {
         /**
          * H-高
          */
-        public static final String HIGH = "H";
+        public static final String HIGH = "01";
         
         /**
          * M-中
          */
-        public static final String MIDDLE = "M";
+        public static final String MIDDLE = "02";
         
         /**
          * L-低
          */
-        public static final String LOW = "L";
+        public static final String LOW = "03";
         
         /**
          * U-加急
          */
-        public static final String URGENT = "U";
+        public static final String URGENT = "00";
         
-        public static final Map dataMap = JSON.parseObject("{\"H\":\"高\",\"M\":\"中\",\"L\":\"低\",\"U\":\"加急\"}");
+        public static final Map dataMap = JSON.parseObject("{\"01\":\"高\",\"02\":\"中\",\"03\":\"低\",\"00\":\"加急\"}");
     }
     
     public static class NoteState{
