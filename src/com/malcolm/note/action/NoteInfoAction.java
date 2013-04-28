@@ -86,4 +86,18 @@ public class NoteInfoAction {
             ex.printStackTrace();
         }
     }
+
+    /**
+     * 根据主键集合完成便签信息
+     *
+     * @param list
+     * @return
+     */
+    public static void finishNoteInfoById(ArrayList<String> list) {
+        try {
+            dao.finishNoteInfoById(list);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 }

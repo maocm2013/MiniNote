@@ -95,6 +95,11 @@ public class MiniNoteFrame extends javax.swing.JFrame {
         finishBton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         finishBton.setPreferredSize(new java.awt.Dimension(83, 60));
         finishBton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        finishBton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                finishBtonActionPerformed(evt);
+            }
+        });
         toolBar.add(finishBton);
 
         searchBton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/search.png"))); // NOI18N
@@ -169,6 +174,19 @@ public class MiniNoteFrame extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_delBtonActionPerformed
+
+    private void finishBtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finishBtonActionPerformed
+        if (UITools.getCheckedRows(noteTable) == 0) {
+            JOptionPane.showMessageDialog(rootPane, "您至少需要选择一条记录！");
+        } else {
+            if (JOptionPane.showConfirmDialog(rootPane, "请确认您是否要强制完成所选记录？") == JOptionPane.YES_OPTION) {
+                ArrayList<String> list = UITools.getCheckedRowsId(noteTable);
+                NoteInfoAction.finishNoteInfoById(list);
+                JOptionPane.showMessageDialog(rootPane, list.size() + "条记录强制完成成功！");
+                refreshNoteTableDatas();
+            }
+        }
+    }//GEN-LAST:event_finishBtonActionPerformed
 
     /**
      * @param args the command line arguments

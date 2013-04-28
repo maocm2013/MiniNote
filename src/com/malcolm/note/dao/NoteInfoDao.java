@@ -5,6 +5,7 @@
 package com.malcolm.note.dao;
 
 import com.malcolm.note.domain.NoteInfo;
+import com.malcolm.note.util.DictEnum;
 import com.malcolm.note.util.JdbcUtil;
 import com.malcolm.note.util.UITools;
 import java.sql.Connection;
@@ -60,30 +61,30 @@ public class NoteInfoDao {
         try {
             conn = JdbcUtil.getConn();
             queryRunner = new QueryRunner();
-            noteInfo = (NoteInfo) queryRunner.query(conn, sql, new BeanHandler(NoteInfo.class),pkId);
+            noteInfo = (NoteInfo) queryRunner.query(conn, sql, new BeanHandler(NoteInfo.class), pkId);
         } finally {
             DbUtils.close(conn);
         }
         return noteInfo;
     }
-    
+
     /**
      * 根据主键集合删除多条便签信息
+     *
      * @param list
      * @return
      * @throws SQLException
-     * @throws ClassNotFoundException 
+     * @throws ClassNotFoundException
      */
-    public NoteInfo deleteNoteInfoById(ArrayList<String> list) throws SQLException, ClassNotFoundException {
+    public void deleteNoteInfoById(ArrayList<String> list) throws SQLException, ClassNotFoundException {
         Connection conn = null;
         QueryRunner queryRunner = null;
-        NoteInfo noteInfo = null;
         String sql = "delete from note_info where pk_id=?";
         try {
             conn = JdbcUtil.getConn();
             conn.setAutoCommit(false);
             queryRunner = new QueryRunner();
-            for(int i = 0; i < list.size(); i++){
+            for (int i = 0; i < list.size(); i++) {
                 queryRunner.update(conn, sql, list.get(i));
             }
             conn.commit();
@@ -91,7 +92,32 @@ public class NoteInfoDao {
             conn.setAutoCommit(true);
             DbUtils.close(conn);
         }
-        return noteInfo;
+    }
+
+    /**
+     * 根据主键集合完成便签信息
+     *
+     * @param list
+     * @return
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
+    public void finishNoteInfoById(ArrayList<String> list) throws SQLException, ClassNotFoundException {
+        Connection conn = null;
+        QueryRunner queryRunner = null;
+        String sql = "update note_info set note_state=? where pk_id=?";
+        try {
+            conn = JdbcUtil.getConn();
+            conn.setAutoCommit(false);
+            queryRunner = new QueryRunner();
+            for (int i = 0; i < list.size(); i++) {
+                queryRunner.update(conn, sql, DictEnum.NoteState.FINISHED,list.get(i));
+            }
+            conn.commit();
+        } finally {
+            conn.setAutoCommit(true);
+            DbUtils.close(conn);
+        }
     }
 
     /**
