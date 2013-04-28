@@ -4,6 +4,7 @@
  */
 package com.malcolm.note.util;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -93,16 +94,16 @@ public class UITools {
      * @param table
      * @return 
      */
-    public static Vector<String> getCheckedRowsId(JTable table) {
-        Vector<String> v = new Vector<String>();
+    public static ArrayList<String> getCheckedRowsId(JTable table) {
+        ArrayList<String> list = new ArrayList<String>();
         TableModel model = table.getModel();
         int rows = model.getRowCount();
         for (int i = 0; i < rows; i++) {
             //JOptionPane.showMessageDialog(null,String.valueOf(model.getValueAt(i, 1)));
             if (model.getValueAt(i, 0) != null && (Boolean) model.getValueAt(i, 0).equals(Boolean.TRUE)) {
-                v.add(String.valueOf(model.getValueAt(i, 1)));
+                list.add(String.valueOf(model.getValueAt(i, 1)));
             }
         }
-        return v;
+        return list;
     }
 }

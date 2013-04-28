@@ -9,6 +9,7 @@ import com.malcolm.note.util.JdbcUtil;
 import com.malcolm.note.util.UITools;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
@@ -61,6 +62,33 @@ public class NoteInfoDao {
             queryRunner = new QueryRunner();
             noteInfo = (NoteInfo) queryRunner.query(conn, sql, new BeanHandler(NoteInfo.class),pkId);
         } finally {
+            DbUtils.close(conn);
+        }
+        return noteInfo;
+    }
+    
+    /**
+     * 根据主键集合删除多条便签信息
+     * @param list
+     * @return
+     * @throws SQLException
+     * @throws ClassNotFoundException 
+     */
+    public NoteInfo deleteNoteInfoById(ArrayList<String> list) throws SQLException, ClassNotFoundException {
+        Connection conn = null;
+        QueryRunner queryRunner = null;
+        NoteInfo noteInfo = null;
+        String sql = "delete from note_info where pk_id=?";
+        try {
+            conn = JdbcUtil.getConn();
+            conn.setAutoCommit(false);
+            queryRunner = new QueryRunner();
+            for(int i = 0; i < list.size(); i++){
+                queryRunner.update(conn, sql, list.get(i));
+            }
+            conn.commit();
+        } finally {
+            conn.setAutoCommit(true);
             DbUtils.close(conn);
         }
         return noteInfo;

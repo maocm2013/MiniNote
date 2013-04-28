@@ -243,10 +243,7 @@ public class EditNoteDialog extends javax.swing.JDialog {
         
         //刷新父界面中的表单数据
         MiniNoteFrame frame = (MiniNoteFrame)this.getParent();
-        NoteTableModel model = (NoteTableModel)frame.getNoteTable().getModel();
-        model.refreshContents(NoteInfoAction.getAllNoteTableData());
-        //TODO:必须要重新设置一下model，否则刷新内容后界面无变化
-        frame.getNoteTable().setModel(model);
+        frame.refreshNoteTableDatas();
     }//GEN-LAST:event_jXButton1ActionPerformed
 
     private NoteInfo noteInfo;

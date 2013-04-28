@@ -4,6 +4,7 @@ import com.malcolm.note.dao.NoteInfoDao;
 import com.malcolm.note.domain.NoteInfo;
 import com.malcolm.note.ui.NoteTableModel;
 import com.malcolm.note.util.DictEnum;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,12 +13,13 @@ import java.util.List;
  */
 public class NoteInfoAction {
 
+    private static final NoteInfoDao dao = new NoteInfoDao();
+
     /**
      *
      * @return
      */
     public static Object[][] getAllNoteTableData() {
-        NoteInfoDao dao = new NoteInfoDao();
         Object[][] data = null;
         try {
             List<NoteInfo> list = dao.getAllNoteInfo();
@@ -48,7 +50,6 @@ public class NoteInfoAction {
      * @param noteInfo
      */
     public static void saveOrUpdateNoteInfo(NoteInfo noteInfo) {
-        NoteInfoDao dao = new NoteInfoDao();
         try {
             dao.saveOrUpdateNoteInfo(noteInfo);
         } catch (Exception ex) {
@@ -58,11 +59,11 @@ public class NoteInfoAction {
 
     /**
      * 根据主键获取便签信息
+     *
      * @param pkId
-     * @return 
+     * @return
      */
     public static NoteInfo getNoteInfoById(String pkId) {
-        NoteInfoDao dao = new NoteInfoDao();
         NoteInfo noteInfo = null;
         try {
             noteInfo = dao.getNoteInfoById(pkId);
@@ -70,5 +71,19 @@ public class NoteInfoAction {
             ex.printStackTrace();
         }
         return noteInfo;
+    }
+
+    /**
+     * 根据主键集合删除便签信息
+     *
+     * @param list
+     * @return
+     */
+    public static void deleteNoteInfoById(ArrayList<String> list) {
+        try {
+            dao.deleteNoteInfoById(list);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 }

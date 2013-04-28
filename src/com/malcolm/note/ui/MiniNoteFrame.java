@@ -3,9 +3,9 @@ package com.malcolm.note.ui;
 import com.malcolm.note.action.NoteInfoAction;
 import com.malcolm.note.domain.NoteInfo;
 import com.malcolm.note.util.UITools;
-import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import org.jdesktop.swingx.JXTable;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -69,6 +69,11 @@ public class MiniNoteFrame extends javax.swing.JFrame {
         delBton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         delBton.setPreferredSize(new java.awt.Dimension(83, 60));
         delBton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        delBton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                delBtonActionPerformed(evt);
+            }
+        });
         toolBar.add(delBton);
 
         editBton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edit.png"))); // NOI18N
@@ -102,6 +107,13 @@ public class MiniNoteFrame extends javax.swing.JFrame {
 
         //隐藏第一列（主键）
         UITools.hideColumn(noteTable, 1);
+        //设置列宽
+        TableColumnModel cm = noteTable.getColumnModel();
+        cm.getColumn(0).setMaxWidth(40);
+        cm.getColumn(2).setMaxWidth(40);
+        cm.getColumn(5).setMaxWidth(80);
+        cm.getColumn(6).setMaxWidth(50);
+        cm.getColumn(7).setMaxWidth(50);
         noteTable.setRowHeight(30);
         jScrollPane2.setViewportView(noteTable);
 
@@ -119,7 +131,7 @@ public class MiniNoteFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(toolBar, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -134,10 +146,9 @@ public class MiniNoteFrame extends javax.swing.JFrame {
     private void editBtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtonActionPerformed
         if (UITools.getCheckedRows(noteTable) != 1) {
             JOptionPane.showMessageDialog(rootPane, "请确认您选择了一条记录！");
-            return;
         } else {
-            Vector v = UITools.getCheckedRowsId(noteTable);
-            String pkId = v.get(0).toString();
+            ArrayList<String> list = UITools.getCheckedRowsId(noteTable);
+            String pkId = list.get(0);
             //JOptionPane.showMessageDialog(rootPane, "便签主键=" + pkId);
             NoteInfo noteInfo = NoteInfoAction.getNoteInfoById(pkId);
             //JOptionPane.showMessageDialog(rootPane, "便签信息=" + JSON.toJSONString(noteInfo));
@@ -145,6 +156,19 @@ public class MiniNoteFrame extends javax.swing.JFrame {
             dialog.setVisible(true);
         }
     }//GEN-LAST:event_editBtonActionPerformed
+
+    private void delBtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delBtonActionPerformed
+        if (UITools.getCheckedRows(noteTable) == 0) {
+            JOptionPane.showMessageDialog(rootPane, "您至少需要选择一条记录！");
+        } else {
+            if (JOptionPane.showConfirmDialog(rootPane, "请确认您是否要删除数据？") == JOptionPane.YES_OPTION) {
+                ArrayList<String> list = UITools.getCheckedRowsId(noteTable);
+                NoteInfoAction.deleteNoteInfoById(list);
+                JOptionPane.showMessageDialog(rootPane, list.size() + "条记录删除成功！");
+                refreshNoteTableDatas();
+            }
+        }
+    }//GEN-LAST:event_delBtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -181,8 +205,14 @@ public class MiniNoteFrame extends javax.swing.JFrame {
         });
     }
 
-    public JXTable getNoteTable() {
-        return noteTable;
+    /**
+     * 刷新表单数据
+     */
+    public void refreshNoteTableDatas() {
+        NoteTableModel model = (NoteTableModel) noteTable.getModel();
+        model.refreshContents(NoteInfoAction.getAllNoteTableData());
+        //TODO:必须要重新设置一下model，否则刷新内容后界面无变化
+        noteTable.setModel(model);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addBton;
