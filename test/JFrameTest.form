@@ -164,7 +164,7 @@
     </Component>
     <Component class="org.jdesktop.swingx.JXComboBox" name="jXComboBox1">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jXComboBox1.setModel(UITools.getComboxValue(DictEnum.NotePriority.dataMap));"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jXComboBox1.setModel(UITools.getComboxValue(DictEnum.NotePriority.dataMap,false));"/>
       </AuxValues>
     </Component>
     <Component class="org.jdesktop.swingx.JXLabel" name="jXLabel1">

@@ -5,15 +5,10 @@ import com.malcolm.note.ui.NoteTableModel;
 import com.malcolm.note.util.ComboxValue;
 import com.malcolm.note.util.DictEnum;
 import com.malcolm.note.util.UITools;
-import java.util.Vector;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.table.TableColumn;
-import javax.swing.table.TableModel;
 import org.jdesktop.swingx.JXTable;
-import org.jdesktop.swingx.JXTable.BooleanEditor;
 import org.jdesktop.swingx.renderer.DefaultTableRenderer;
-import org.jdesktop.swingx.table.DefaultTableColumnModelExt;
 
 /*
  * To change this template, choose Tools | Templates
@@ -101,7 +96,7 @@ public class JFrameTest extends javax.swing.JFrame {
             }
         });
 
-        jXComboBox1.setModel(UITools.getComboxValue(DictEnum.NotePriority.dataMap));
+        jXComboBox1.setModel(UITools.getComboxValue(DictEnum.NotePriority.dataMap,false));
 
         jXLabel1.setText("下拉列表：");
 
