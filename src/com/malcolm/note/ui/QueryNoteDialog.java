@@ -95,7 +95,7 @@ public class QueryNoteDialog extends javax.swing.JDialog {
         jXLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jXLabel4.setText("优先级：");
 
-        fd_priority.setModel(UITools.getComboxValue(DictEnum.NotePriority.dataMap));
+        fd_priority.setModel(UITools.getComboxValue(DictEnum.NotePriority.dataMap,true));
         if(noteInfo != null){
             fd_priority.getModel().setSelectedItem(new ComboxValue(String.valueOf(DictEnum.NotePriority.dataMap.get(noteInfo.getPriority())),noteInfo.getPriority()));
         }
@@ -103,7 +103,7 @@ public class QueryNoteDialog extends javax.swing.JDialog {
         jXLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jXLabel5.setText("状态：");
 
-        fd_noteState.setModel(UITools.getComboxValue(DictEnum.NoteState.dataMap));
+        fd_noteState.setModel(UITools.getComboxValue(DictEnum.NoteState.dataMap,true));
         if(noteInfo != null){
             fd_noteState.getModel().setSelectedItem(new ComboxValue(String.valueOf(DictEnum.NoteState.dataMap.get(noteInfo.getNoteState())),noteInfo.getNoteState()));
         }

@@ -186,7 +186,7 @@
     <Component class="org.jdesktop.swingx.JXComboBox" name="fd_priority">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="UITools.getComboxValue(DictEnum.NotePriority.dataMap)" type="code"/>
+          <Connection code="UITools.getComboxValue(DictEnum.NotePriority.dataMap,true)" type="code"/>
         </Property>
       </Properties>
       <AuxValues>
@@ -202,7 +202,7 @@
     <Component class="org.jdesktop.swingx.JXComboBox" name="fd_noteState">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="UITools.getComboxValue(DictEnum.NoteState.dataMap)" type="code"/>
+          <Connection code="UITools.getComboxValue(DictEnum.NoteState.dataMap,true)" type="code"/>
         </Property>
       </Properties>
       <AuxValues>

@@ -50,24 +50,25 @@ public class UITools {
 
     /**
      * 根据数据字典生成ComboxModel
-     *
      * @param dataMap
-     * @return
+     * @param isHaveAll 是否包含全部选项
+     * @return 
      */
-    public static DefaultComboBoxModel getComboxValue(Map dataMap) {
+    public static DefaultComboBoxModel getComboxValue(Map dataMap, boolean isHaveAll) {
         Set set = dataMap.entrySet();
-        ComboxValue[] values = new ComboxValue[set.size()];
+        Vector<ComboxValue> v = new Vector<ComboxValue>();
+        if (isHaveAll) {
+            v.add(new ComboxValue("全  部",""));
+        }
         Iterator it = set.iterator();
-        int i = 0;
         while (it.hasNext()) {
             Entry entry = (Entry) it.next();
             ComboxValue value = new ComboxValue();
             value.setName(entry.getValue().toString());
             value.setValue(entry.getKey().toString());
-            values[i] = value;
-            i++;
+            v.add(value);
         }
-        return new DefaultComboBoxModel(values);
+        return new DefaultComboBoxModel(v);
     }
 
     /**
@@ -91,8 +92,9 @@ public class UITools {
 
     /**
      * 获取选中记录的主键集合
+     *
      * @param table
-     * @return 
+     * @return
      */
     public static ArrayList<String> getCheckedRowsId(JTable table) {
         ArrayList<String> list = new ArrayList<String>();
