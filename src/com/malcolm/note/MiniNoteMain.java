@@ -4,6 +4,8 @@
  */
 package com.malcolm.note;
 
+import com.malcolm.note.ui.MiniNoteFrame;
+
 /**
  *
  * @author user
@@ -14,6 +16,6 @@ public class MiniNoteMain {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        new MiniNoteFrame().setVisible(true);
     }
 }

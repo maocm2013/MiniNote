@@ -5,8 +5,18 @@ import com.malcolm.note.ui.NoteTableModel;
 import com.malcolm.note.util.ComboxValue;
 import com.malcolm.note.util.DictEnum;
 import com.malcolm.note.util.UITools;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
+import java.awt.font.TextAttribute;
+import java.util.HashMap;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
+import org.jdesktop.swingx.JXLabel;
 import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.renderer.DefaultTableRenderer;
 
@@ -14,7 +24,6 @@ import org.jdesktop.swingx.renderer.DefaultTableRenderer;
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author user
@@ -59,10 +68,10 @@ public class JFrameTest extends javax.swing.JFrame {
 
         jXTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, "高", null, null},
+                {null, "中", null, null},
+                {null, "低", null, null},
+                {null, "加急", null, null}
             },
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
@@ -83,6 +92,10 @@ public class JFrameTest extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        //第二列进行渲染
+        TableColumn bColumn = jXTable2.getColumnModel().getColumn(1);
+        bColumn.setCellRenderer(new MyTableCellRenderer());
+
         //将第三列也显示复选框
         TableColumn aColumn = jXTable2.getColumnModel().getColumn(2);
         aColumn.setCellEditor(new JXTable.BooleanEditor());
@@ -158,14 +171,14 @@ public class JFrameTest extends javax.swing.JFrame {
 
     private void jXButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXButton1ActionPerformed
         JOptionPane.showMessageDialog(rootPane, "选中行数=" + UITools.getCheckedRows(jXTable1));
-        JOptionPane.showMessageDialog(rootPane,"选中记录主键=" + JSON.toJSONString(UITools.getCheckedRowsId(jXTable1)));
+        JOptionPane.showMessageDialog(rootPane, "选中记录主键=" + JSON.toJSONString(UITools.getCheckedRowsId(jXTable1)));
     }//GEN-LAST:event_jXButton1ActionPerformed
 
     private void jXButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXButton2ActionPerformed
-        jXComboBox1.getModel().setSelectedItem(new ComboxValue("高","H"));
+        jXComboBox1.getModel().setSelectedItem(new ComboxValue("高", "H"));
         //jXComboBox1.updateUI();
     }//GEN-LAST:event_jXButton2ActionPerformed
-    
+
     /**
      * @param args the command line arguments
      */
@@ -210,4 +223,40 @@ public class JFrameTest extends javax.swing.JFrame {
     private org.jdesktop.swingx.JXTable jXTable1;
     private org.jdesktop.swingx.JXTable jXTable2;
     // End of variables declaration//GEN-END:variables
+
+    class MyTableCellRenderer extends JXLabel implements TableCellRenderer {
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            String _value = "";
+            if (value != null) {
+                _value = String.valueOf(value);
+            }
+
+            this.setText(String.valueOf(_value));
+
+            //设置字体
+            HashMap attr = new HashMap();
+            if (_value.equals("低")) {
+                attr.put(TextAttribute.FAMILY, "黑体");
+                attr.put(TextAttribute.SIZE, 14);
+                attr.put(TextAttribute.FOREGROUND, Color.red);
+
+            } else {
+                attr.put(TextAttribute.FAMILY, "黑体");
+                attr.put(TextAttribute.SIZE, 14);
+                attr.put(TextAttribute.FOREGROUND, Color.BLUE);
+            }
+            Font font = new Font(attr);
+            this.setFont(font);
+            
+            //设置背景色
+            if (isSelected) {
+                this.setBackground(table.getSelectionBackground());
+            } else {
+                this.setBackground(Color.white);
+            }
+            return this;
+        }
+    }
 }
