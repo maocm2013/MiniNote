@@ -31,7 +31,7 @@ public class NoteInfoDao {
      * @throws SQLException
      * @throws ClassNotFoundException
      */
-    public List getAllNoteInfo() throws SQLException, ClassNotFoundException {
+    public List getAllNoteInfo() throws SQLException{
         Connection conn = null;
         QueryRunner queryRunner = null;
         List<NoteInfo> list = null;
@@ -58,7 +58,7 @@ public class NoteInfoDao {
      * @throws SQLException
      * @throws ClassNotFoundException 
      */
-    public List getAllNoteInfo(String noteName, String noteComment, Date deadLineDateStart, Date deadLineDateEnd, String priority, String noteState) throws SQLException, ClassNotFoundException {
+    public List getAllNoteInfo(String noteName, String noteComment, Date deadLineDateStart, Date deadLineDateEnd, String priority, String noteState) throws SQLException {
         Connection conn = null;
         QueryRunner queryRunner = null;
         List<NoteInfo> list = null;
@@ -109,7 +109,7 @@ public class NoteInfoDao {
      * @throws SQLException
      * @throws ClassNotFoundException
      */
-    public NoteInfo getNoteInfoById(String pkId) throws SQLException, ClassNotFoundException {
+    public NoteInfo getNoteInfoById(String pkId) throws SQLException{
         Connection conn = null;
         QueryRunner queryRunner = null;
         NoteInfo noteInfo = null;
@@ -132,7 +132,7 @@ public class NoteInfoDao {
      * @throws SQLException
      * @throws ClassNotFoundException
      */
-    public void deleteNoteInfoById(ArrayList<String> list) throws SQLException, ClassNotFoundException {
+    public void deleteNoteInfoById(ArrayList<String> list) throws SQLException{
         Connection conn = null;
         QueryRunner queryRunner = null;
         String sql = "delete from note_info where pk_id=?";
@@ -158,7 +158,7 @@ public class NoteInfoDao {
      * @throws SQLException
      * @throws ClassNotFoundException
      */
-    public void finishNoteInfoById(ArrayList<String> list) throws SQLException, ClassNotFoundException {
+    public void finishNoteInfoById(ArrayList<String> list) throws SQLException {
         Connection conn = null;
         QueryRunner queryRunner = null;
         String sql = "update note_info set note_state=? where pk_id=?";
@@ -183,7 +183,7 @@ public class NoteInfoDao {
      * @throws ClassNotFoundException
      * @throws SQLException
      */
-    public void saveOrUpdateNoteInfo(NoteInfo noteInfo) throws ClassNotFoundException, SQLException {
+    public void saveOrUpdateNoteInfo(NoteInfo noteInfo) throws SQLException {
         Connection conn = null;
         QueryRunner queryRunner = null;
         String sql_insert = "insert into note_info(note_name,note_comment,dead_line_date,priority,note_state,pk_id)values(?,?,?,?,?,?)";
