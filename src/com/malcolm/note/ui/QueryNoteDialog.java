@@ -4,16 +4,12 @@
  */
 package com.malcolm.note.ui;
 
-import com.malcolm.note.action.NoteInfoAction;
 import com.malcolm.note.domain.NoteInfo;
 import com.malcolm.note.util.ComboxValue;
 import com.malcolm.note.util.DictEnum;
-import org.apache.commons.lang3.time.DateFormatUtils;
 import com.malcolm.note.util.UITools;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.swing.JOptionPane;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  *

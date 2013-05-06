@@ -23,7 +23,7 @@ public class EditNoteDialog extends javax.swing.JDialog {
     /**
      * Creates new form EditNoteDialog
      */
-    public EditNoteDialog(java.awt.Frame parent, boolean modal,NoteInfo noteInfo) {
+    public EditNoteDialog(java.awt.Frame parent, boolean modal, NoteInfo noteInfo) {
         super(parent, modal);
         this.noteInfo = noteInfo;
         initComponents();
@@ -197,52 +197,51 @@ public class EditNoteDialog extends javax.swing.JDialog {
 
     private void jXButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXButton1ActionPerformed
         NoteInfo note = new NoteInfo();
-        if(StringUtils.isEmpty(fd_noteName.getText())){
+        if (StringUtils.isEmpty(fd_noteName.getText())) {
             JOptionPane.showMessageDialog(this, "名称不能为空！");
             //获取焦点
             fd_noteName.requestFocus();
             return;
-        }else{
+        } else {
             note.setNoteName(fd_noteName.getText().trim());
         }
-        
-        if(StringUtils.isEmpty(fd_noteComment.getText())){
+
+        if (StringUtils.isEmpty(fd_noteComment.getText())) {
             JOptionPane.showMessageDialog(this, "备注不能为空！");
             //获取焦点
             fd_noteComment.requestFocus();
             return;
-        }else{
+        } else {
             note.setNoteComment(fd_noteComment.getText().trim());
         }
-        
-        if(fd_deadLineDate.getDate() == null){
+
+        if (fd_deadLineDate.getDate() == null) {
             JOptionPane.showMessageDialog(this, "到达日期不能为空！");
             //获取焦点
             fd_deadLineDate.requestFocus();
             return;
-        }else{
+        } else {
             note.setDeadLineDate(DateFormatUtils.format(fd_deadLineDate.getDate(), "yyyyMMdd"));
         }
-        
-        ComboxValue cm_priority = (ComboxValue)fd_priority.getSelectedItem();
+
+        ComboxValue cm_priority = (ComboxValue) fd_priority.getSelectedItem();
         note.setPriority(cm_priority.getValue());
-        ComboxValue cm_noteState = (ComboxValue)fd_noteState.getSelectedItem();
+        ComboxValue cm_noteState = (ComboxValue) fd_noteState.getSelectedItem();
         note.setNoteState(cm_noteState.getValue());
-        
+
         //如果具备便签信息则是修改操作
-        if(noteInfo != null){
+        if (noteInfo != null) {
             note.setPkId(noteInfo.getPkId());
         }
         //JOptionPane.showMessageDialog(null, note.toString());
         NoteInfoAction.saveOrUpdateNoteInfo(note);
         JOptionPane.showMessageDialog(this, "保存成功！");
         this.dispose();
-        
+
         //刷新父界面中的表单数据
-        MiniNoteFrame frame = (MiniNoteFrame)this.getParent();
+        MiniNoteFrame frame = (MiniNoteFrame) this.getParent();
         frame.refreshNoteTableDatas();
     }//GEN-LAST:event_jXButton1ActionPerformed
-
     private NoteInfo noteInfo;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jdesktop.swingx.JXDatePicker fd_deadLineDate;

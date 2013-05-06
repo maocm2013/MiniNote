@@ -1,22 +1,29 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.malcolm.note;
 
 import com.malcolm.note.ui.MiniNoteFrame;
+import com.malcolm.note.util.Configuration;
+import javax.swing.JFrame;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author user
  */
 public class MiniNoteMain {
+    private static final Logger log = Logger.getLogger(MiniNoteMain.class);
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-         /* Set the Nimbus look and feel */
+        try {
+            //Log4j初始化
+            Configuration.initLog4j();
+        } catch (Exception ex) {
+            log.error("log4j init error:",ex);
+        }
+        
+        /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
@@ -29,20 +36,23 @@ public class MiniNoteMain {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MiniNoteFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            log.error("lookAndFeel set error:",ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MiniNoteFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            log.error("lookAndFeel set error:",ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MiniNoteFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            log.error("lookAndFeel set error:",ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MiniNoteFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            log.error("lookAndFeel set error:",ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MiniNoteFrame().setVisible(true);
+                JFrame frame = new MiniNoteFrame();
+                //居中显示
+                frame.setLocationRelativeTo(null);
+                frame.setVisible(true);
             }
         });
     }

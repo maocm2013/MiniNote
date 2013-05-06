@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.malcolm.note.dao;
 
 import com.malcolm.note.domain.NoteInfo;
@@ -19,12 +15,14 @@ import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author user
  */
 public class NoteInfoDao {
+    private static final Logger log = Logger.getLogger(NoteInfoDao.class);
 
     /**
      * 获取所有便签信息,默认不显示已完成和遗弃的数据，并且按照到达日期升序、优先级升序排列
@@ -93,7 +91,7 @@ public class NoteInfoDao {
                 sb.append(" and note_state=? ");
             }
             sb.append(" order by dead_line_date,priority");
-            System.out.println("查询sql=" + sb.toString());
+            log.debug("查询sql=" + sb.toString());
             
             conn = JdbcUtil.getConn();
             queryRunner = new QueryRunner();

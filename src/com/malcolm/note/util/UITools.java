@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.malcolm.note.util;
 
 import java.util.ArrayList;
@@ -12,7 +8,6 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
@@ -50,15 +45,16 @@ public class UITools {
 
     /**
      * 根据数据字典生成ComboxModel
+     *
      * @param dataMap
      * @param isHaveAll 是否包含全部选项
-     * @return 
+     * @return
      */
     public static DefaultComboBoxModel getComboxValue(Map dataMap, boolean isHaveAll) {
         Set set = dataMap.entrySet();
         Vector<ComboxValue> v = new Vector<ComboxValue>();
         if (isHaveAll) {
-            v.add(new ComboxValue("全  部",""));
+            v.add(new ComboxValue("全  部", ""));
         }
         Iterator it = set.iterator();
         while (it.hasNext()) {

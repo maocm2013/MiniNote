@@ -151,6 +151,7 @@ public class MiniNoteFrame extends javax.swing.JFrame {
 
     private void addBtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtonActionPerformed
         EditNoteDialog dialog = new EditNoteDialog(this, true, null);
+        dialog.setLocationRelativeTo(this);
         dialog.setVisible(true);
     }//GEN-LAST:event_addBtonActionPerformed
 
@@ -164,6 +165,7 @@ public class MiniNoteFrame extends javax.swing.JFrame {
             NoteInfo noteInfo = NoteInfoAction.getNoteInfoById(pkId);
             //JOptionPane.showMessageDialog(rootPane, "便签信息=" + JSON.toJSONString(noteInfo));
             EditNoteDialog dialog = new EditNoteDialog(this, true, noteInfo);
+            dialog.setLocationRelativeTo(this);
             dialog.setVisible(true);
         }
     }//GEN-LAST:event_editBtonActionPerformed
@@ -196,6 +198,7 @@ public class MiniNoteFrame extends javax.swing.JFrame {
 
     private void searchBtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtonActionPerformed
         QueryNoteDialog dialog = new QueryNoteDialog(this, true, null);
+        dialog.setLocationRelativeTo(this);
         dialog.setVisible(true);
     }//GEN-LAST:event_searchBtonActionPerformed
 

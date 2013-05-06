@@ -1,0 +1,6 @@
+2013-05-06 11:11:24[com.malcolm.note.util.JdbcUtil:23] DEBUG filePath=E:\my_workspace\MiniNote\config\note.db
+2013-05-06 11:11:27[com.malcolm.note.dao.NoteInfoDao:94] DEBUG 查询sql=select pk_id pkId,note_name noteName,note_comment noteComment,dead_line_date deadLineDate,priority priority,note_state noteState from note_info where 1=1  order by dead_line_date,priority
+2013-05-06 11:11:27[com.malcolm.note.util.JdbcUtil:23] DEBUG filePath=E:\my_workspace\MiniNote\config\note.db
+2013-05-06 11:11:34[com.malcolm.note.util.JdbcUtil:23] DEBUG filePath=E:\my_workspace\MiniNote\config\note.db
+2013-05-06 11:11:39[com.malcolm.note.util.JdbcUtil:23] DEBUG filePath=E:\my_workspace\MiniNote\config\note.db
+2013-05-06 11:11:40[com.malcolm.note.util.JdbcUtil:23] DEBUG filePath=E:\my_workspace\MiniNote\config\note.db
