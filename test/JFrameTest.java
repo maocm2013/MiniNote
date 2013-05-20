@@ -10,6 +10,7 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.font.TextAttribute;
 import java.util.HashMap;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -93,8 +94,9 @@ public class JFrameTest extends javax.swing.JFrame {
             }
         });
         //第二列进行渲染
-        TableColumn bColumn = jXTable2.getColumnModel().getColumn(1);
-        bColumn.setCellRenderer(new MyTableCellRenderer());
+        //TableColumn bColumn = jXTable2.getColumnModel().getColumn(1);
+        //bColumn.setCellRenderer(new MyTableCellRenderer());
+        jXTable2.setDefaultRenderer(Object.class, new MyTableCellRenderer());
 
         //将第三列也显示复选框
         TableColumn aColumn = jXTable2.getColumnModel().getColumn(2);
@@ -233,23 +235,40 @@ public class JFrameTest extends javax.swing.JFrame {
                 _value = String.valueOf(value);
             }
 
-            this.setText(String.valueOf(_value));
+            /*设置字体设置方式*/
+//            this.setText(String.valueOf(_value));
+//
+//            //设置字体
+//            HashMap attr = new HashMap();
+//            if (_value.equals("低")) {
+//                attr.put(TextAttribute.FAMILY, "黑体");
+//                attr.put(TextAttribute.SIZE, 14);
+//                attr.put(TextAttribute.FOREGROUND, Color.red);
+//
+//            } else {
+//                attr.put(TextAttribute.FAMILY, "黑体");
+//                attr.put(TextAttribute.SIZE, 14);
+//                attr.put(TextAttribute.FOREGROUND, Color.BLUE);
+//            }
+//            Font font = new Font(attr);
+//            this.setFont(font);
 
-            //设置字体
-            HashMap attr = new HashMap();
-            if (_value.equals("低")) {
-                attr.put(TextAttribute.FAMILY, "黑体");
-                attr.put(TextAttribute.SIZE, 14);
-                attr.put(TextAttribute.FOREGROUND, Color.red);
-
-            } else {
-                attr.put(TextAttribute.FAMILY, "黑体");
-                attr.put(TextAttribute.SIZE, 14);
-                attr.put(TextAttribute.FOREGROUND, Color.BLUE);
+            //针对第二列进行图片显示渲染
+            if (column == 1) {
+                /*使用图片显示方式*/
+                if (_value.equals("低")) {
+                    this.setIcon(new ImageIcon(this.getClass().getResource("/LOW.png")));
+                } else if (_value.equals("中")) {
+                    this.setIcon(new ImageIcon(this.getClass().getResource("/MIDDLE.png")));
+                } else if (_value.equals("高")) {
+                    this.setIcon(new ImageIcon(this.getClass().getResource("/HIGH.png")));
+                } else if (_value.equals("加急")) {
+                    this.setIcon(new ImageIcon(this.getClass().getResource("/URGENT.png")));
+                }
             }
-            Font font = new Font(attr);
-            this.setFont(font);
-            
+
+
+
             //设置背景色
             if (isSelected) {
                 this.setBackground(table.getSelectionBackground());
