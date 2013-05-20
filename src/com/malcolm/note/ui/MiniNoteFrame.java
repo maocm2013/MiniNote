@@ -37,7 +37,7 @@ public class MiniNoteFrame extends javax.swing.JFrame {
         finishBton = new javax.swing.JButton();
         searchBton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        NoteTableModel model = new NoteTableModel();
+        NoteTableConfig.NoteTableModel model = new NoteTableConfig().new NoteTableModel();
         //初始化显示数据
         Object[][] datas = NoteInfoAction.getAllNoteTableData();
         model.refreshContents(datas);
@@ -124,6 +124,7 @@ public class MiniNoteFrame extends javax.swing.JFrame {
         cm.getColumn(2).setMaxWidth(40);
         cm.getColumn(5).setMaxWidth(80);
         cm.getColumn(6).setMaxWidth(50);
+        cm.getColumn(6).setCellRenderer(new NoteTableConfig().new PriorityCellRenderer());
         cm.getColumn(7).setMaxWidth(50);
         noteTable.setRowHeight(30);
         jScrollPane2.setViewportView(noteTable);
@@ -206,7 +207,7 @@ public class MiniNoteFrame extends javax.swing.JFrame {
      * 刷新表单数据
      */
     public void refreshNoteTableDatas() {
-        NoteTableModel model = (NoteTableModel) noteTable.getModel();
+        NoteTableConfig.NoteTableModel model = (NoteTableConfig.NoteTableModel) noteTable.getModel();
         model.refreshContents(NoteInfoAction.getAllNoteTableData());
         //TODO:必须要重新设置一下model，否则刷新内容后界面无变化
         noteTable.setModel(model);
@@ -222,7 +223,7 @@ public class MiniNoteFrame extends javax.swing.JFrame {
      * @param noteState 
      */
     public void refreshNoteTableDatas(String noteName,String noteComment,Date deadLineDateStart,Date deadLineDateEnd,String priority,String noteState) {
-        NoteTableModel model = (NoteTableModel) noteTable.getModel();
+        NoteTableConfig.NoteTableModel model = (NoteTableConfig.NoteTableModel) noteTable.getModel();
         model.refreshContents(NoteInfoAction.getAllNoteTableData(noteName,noteComment,deadLineDateStart,deadLineDateEnd,priority,noteState));
         //TODO:必须要重新设置一下model，否则刷新内容后界面无变化
         noteTable.setModel(model);

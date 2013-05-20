@@ -2,7 +2,7 @@ package com.malcolm.note.action;
 
 import com.malcolm.note.dao.NoteInfoDao;
 import com.malcolm.note.domain.NoteInfo;
-import com.malcolm.note.ui.NoteTableModel;
+import com.malcolm.note.ui.NoteTableConfig;
 import com.malcolm.note.util.DictEnum;
 import java.util.ArrayList;
 import java.util.Date;
@@ -58,7 +58,7 @@ public class NoteInfoAction {
     }
 
     private static Object[][] List2TableData(List<NoteInfo> list) {
-        Object[][] data = new String[list.size()][NoteTableModel.columnNames.length];
+        Object[][] data = new String[list.size()][NoteTableConfig.tableColumnNames.length];
         for (int i = 0; i < list.size(); i++) {
             int seq = 0;
             NoteInfo note = list.get(i);

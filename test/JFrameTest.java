@@ -1,23 +1,18 @@
 
 import com.alibaba.fastjson.JSON;
 import com.malcolm.note.action.NoteInfoAction;
-import com.malcolm.note.ui.NoteTableModel;
+import com.malcolm.note.ui.NoteTableConfig;
+import com.malcolm.note.ui.NoteTableConfig.NoteTableModel;
 import com.malcolm.note.util.ComboxValue;
 import com.malcolm.note.util.DictEnum;
 import com.malcolm.note.util.UITools;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Font;
-import java.awt.font.TextAttribute;
-import java.util.HashMap;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.table.TableCellEditor;
-import javax.swing.table.TableCellRenderer;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
-import org.jdesktop.swingx.JXLabel;
 import org.jdesktop.swingx.JXTable;
 import org.jdesktop.swingx.renderer.DefaultTableRenderer;
 
@@ -58,7 +53,7 @@ public class JFrameTest extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        NoteTableModel model1 = new NoteTableModel();
+        NoteTableConfig.NoteTableModel model1 = new NoteTableConfig().new NoteTableModel();
         //初始化显示数据
         Object[][] datas1 = NoteInfoAction.getAllNoteTableData();
         model1.refreshContents(datas1);
@@ -69,8 +64,8 @@ public class JFrameTest extends javax.swing.JFrame {
 
         jXTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, "高", null, null},
-                {null, "中", null, null},
+                {null, "高", null, "w"},
+                {null, "中", null, "f"},
                 {null, "低", null, null},
                 {null, "加急", null, null}
             },
@@ -94,9 +89,9 @@ public class JFrameTest extends javax.swing.JFrame {
             }
         });
         //第二列进行渲染
-        //TableColumn bColumn = jXTable2.getColumnModel().getColumn(1);
-        //bColumn.setCellRenderer(new MyTableCellRenderer());
-        jXTable2.setDefaultRenderer(Object.class, new MyTableCellRenderer());
+        TableColumn bColumn = jXTable2.getColumnModel().getColumn(1);
+        bColumn.setCellRenderer(new MyTableCellRenderer());
+        //jXTable2.setDefaultRenderer(Object.class, new MyTableCellRenderer());
 
         //将第三列也显示复选框
         TableColumn aColumn = jXTable2.getColumnModel().getColumn(2);
@@ -226,7 +221,7 @@ public class JFrameTest extends javax.swing.JFrame {
     private org.jdesktop.swingx.JXTable jXTable2;
     // End of variables declaration//GEN-END:variables
 
-    class MyTableCellRenderer extends JXLabel implements TableCellRenderer {
+    class MyTableCellRenderer extends DefaultTableCellRenderer {
 
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -254,7 +249,6 @@ public class JFrameTest extends javax.swing.JFrame {
 //            this.setFont(font);
 
             //针对第二列进行图片显示渲染
-            if (column == 1) {
                 /*使用图片显示方式*/
                 if (_value.equals("低")) {
                     this.setIcon(new ImageIcon(this.getClass().getResource("/LOW.png")));
@@ -265,8 +259,6 @@ public class JFrameTest extends javax.swing.JFrame {
                 } else if (_value.equals("加急")) {
                     this.setIcon(new ImageIcon(this.getClass().getResource("/URGENT.png")));
                 }
-            }
-
 
 
             //设置背景色

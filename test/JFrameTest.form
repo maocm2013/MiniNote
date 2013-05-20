@@ -101,7 +101,7 @@
             </Property>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="NoteTableModel model1 = new NoteTableModel();&#xa;//&#x521d;&#x59cb;&#x5316;&#x663e;&#x793a;&#x6570;&#x636e;&#xa;Object[][] datas1 = NoteInfoAction.getAllNoteTableData();&#xa;model1.refreshContents(datas1);"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="NoteTableConfig.NoteTableModel model1 = new NoteTableConfig().new NoteTableModel();&#xa;//&#x521d;&#x59cb;&#x5316;&#x663e;&#x793a;&#x6570;&#x636e;&#xa;Object[][] datas1 = NoteInfoAction.getAllNoteTableData();&#xa;model1.refreshContents(datas1);"/>
           </AuxValues>
         </Component>
       </SubComponents>
@@ -115,7 +115,7 @@
       <SubComponents>
         <Component class="org.jdesktop.swingx.JXTable" name="jXTable2">
           <Properties>
-            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor" postCode="//&#x7b2c;&#x4e8c;&#x5217;&#x8fdb;&#x884c;&#x6e32;&#x67d3;&#xa;//TableColumn bColumn = jXTable2.getColumnModel().getColumn(1);&#xa;//bColumn.setCellRenderer(new MyTableCellRenderer());&#xa;jXTable2.setDefaultRenderer(Object.class, new MyTableCellRenderer()); &#xa;&#xa;//&#x5c06;&#x7b2c;&#x4e09;&#x5217;&#x4e5f;&#x663e;&#x793a;&#x590d;&#x9009;&#x6846;&#xa;TableColumn aColumn = jXTable2.getColumnModel().getColumn(2);&#xa;aColumn.setCellEditor(new JXTable.BooleanEditor());&#xa;aColumn.setCellRenderer(new DefaultTableRenderer());">
+            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor" postCode="//&#x7b2c;&#x4e8c;&#x5217;&#x8fdb;&#x884c;&#x6e32;&#x67d3;&#xa;TableColumn bColumn = jXTable2.getColumnModel().getColumn(1);&#xa;bColumn.setCellRenderer(new MyTableCellRenderer());&#xa;//jXTable2.setDefaultRenderer(Object.class, new MyTableCellRenderer()); &#xa;&#xa;//&#x5c06;&#x7b2c;&#x4e09;&#x5217;&#x4e5f;&#x663e;&#x793a;&#x590d;&#x9009;&#x6846;&#xa;TableColumn aColumn = jXTable2.getColumnModel().getColumn(2);&#xa;aColumn.setCellEditor(new JXTable.BooleanEditor());&#xa;aColumn.setCellRenderer(new DefaultTableRenderer());">
               <Table columnCount="4" rowCount="4">
                 <Column editable="false" title="Title 1" type="java.lang.Boolean"/>
                 <Column editable="true" title="Title 2" type="java.lang.Object">
@@ -125,7 +125,12 @@
                   <Data value="&#x52a0;&#x6025;"/>
                 </Column>
                 <Column editable="true" title="Title 3" type="java.lang.Object"/>
-                <Column editable="true" title="Title 4" type="java.lang.Object"/>
+                <Column editable="true" title="Title 4" type="java.lang.Object">
+                  <Data value="w"/>
+                  <Data value="f"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                </Column>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
