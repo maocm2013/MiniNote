@@ -3,6 +3,7 @@ package com.malcolm.note.ui;
 import com.malcolm.note.action.NoteInfoAction;
 import com.malcolm.note.domain.NoteInfo;
 import com.malcolm.note.util.UITools;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -45,6 +46,7 @@ public class MiniNoteFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("桌面便签");
+        setIconImage(Toolkit.getDefaultToolkit().createImage(getClass().getResource("/notes.png")));
         setPreferredSize(new java.awt.Dimension(640, 480));
         setResizable(false);
 
@@ -55,7 +57,9 @@ public class MiniNoteFrame extends javax.swing.JFrame {
         addBton.setToolTipText("添加");
         addBton.setFocusable(false);
         addBton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        addBton.setPreferredSize(new java.awt.Dimension(83, 60));
+        addBton.setMaximumSize(new java.awt.Dimension(40, 40));
+        addBton.setMinimumSize(new java.awt.Dimension(40, 40));
+        addBton.setPreferredSize(new java.awt.Dimension(40, 40));
         addBton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         addBton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -68,7 +72,9 @@ public class MiniNoteFrame extends javax.swing.JFrame {
         delBton.setToolTipText("删除");
         delBton.setFocusable(false);
         delBton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        delBton.setPreferredSize(new java.awt.Dimension(83, 60));
+        delBton.setMaximumSize(new java.awt.Dimension(40, 40));
+        delBton.setMinimumSize(new java.awt.Dimension(40, 40));
+        delBton.setPreferredSize(new java.awt.Dimension(40, 40));
         delBton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         delBton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -81,7 +87,9 @@ public class MiniNoteFrame extends javax.swing.JFrame {
         editBton.setToolTipText("修改");
         editBton.setFocusable(false);
         editBton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        editBton.setPreferredSize(new java.awt.Dimension(83, 60));
+        editBton.setMaximumSize(new java.awt.Dimension(40, 40));
+        editBton.setMinimumSize(new java.awt.Dimension(40, 40));
+        editBton.setPreferredSize(new java.awt.Dimension(40, 40));
         editBton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         editBton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,7 +102,9 @@ public class MiniNoteFrame extends javax.swing.JFrame {
         finishBton.setToolTipText("完成");
         finishBton.setFocusable(false);
         finishBton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        finishBton.setPreferredSize(new java.awt.Dimension(83, 60));
+        finishBton.setMaximumSize(new java.awt.Dimension(40, 40));
+        finishBton.setMinimumSize(new java.awt.Dimension(40, 40));
+        finishBton.setPreferredSize(new java.awt.Dimension(40, 40));
         finishBton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         finishBton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,7 +117,9 @@ public class MiniNoteFrame extends javax.swing.JFrame {
         searchBton.setToolTipText("搜索");
         searchBton.setFocusable(false);
         searchBton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        searchBton.setPreferredSize(new java.awt.Dimension(83, 60));
+        searchBton.setMaximumSize(new java.awt.Dimension(40, 40));
+        searchBton.setMinimumSize(new java.awt.Dimension(40, 40));
+        searchBton.setPreferredSize(new java.awt.Dimension(40, 40));
         searchBton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         searchBton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
