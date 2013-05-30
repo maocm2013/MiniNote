@@ -43,11 +43,12 @@ public class MiniNoteFrame extends javax.swing.JFrame {
         Object[][] datas = NoteInfoAction.getAllNoteTableData();
         model.refreshContents(datas);
         noteTable = new org.jdesktop.swingx.JXTable(model);
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jXTree1 = new org.jdesktop.swingx.JXTree();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("桌面便签");
         setIconImage(Toolkit.getDefaultToolkit().createImage(getClass().getResource("/notes.png")));
-        setPreferredSize(new java.awt.Dimension(640, 480));
         setResizable(false);
 
         toolBar.setFloatable(false);
@@ -141,19 +142,26 @@ public class MiniNoteFrame extends javax.swing.JFrame {
         noteTable.setRowHeight(30);
         jScrollPane2.setViewportView(noteTable);
 
+        jScrollPane1.setViewportView(jXTree1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(toolBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2))
+            .addComponent(toolBar, javax.swing.GroupLayout.DEFAULT_SIZE, 726, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(toolBar, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
 
@@ -243,7 +251,9 @@ public class MiniNoteFrame extends javax.swing.JFrame {
     private javax.swing.JButton delBton;
     private javax.swing.JButton editBton;
     private javax.swing.JButton finishBton;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private org.jdesktop.swingx.JXTree jXTree1;
     private org.jdesktop.swingx.JXTable noteTable;
     private javax.swing.JButton searchBton;
     private javax.swing.JToolBar toolBar;

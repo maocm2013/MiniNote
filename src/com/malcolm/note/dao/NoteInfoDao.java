@@ -35,7 +35,7 @@ public class NoteInfoDao {
         Connection conn = null;
         QueryRunner queryRunner = null;
         List<NoteInfo> list = null;
-        String sql = "select pk_id pkId,note_name noteName,note_comment noteComment,dead_line_date deadLineDate,priority priority,note_state noteState from note_info where note_state not in(?,?) order by dead_line_date,priority";
+        String sql = "select pk_id pkId,note_name noteName,note_comment noteComment,dead_line_date deadLineDate,priority priority,note_state noteState,remind_time remindTime from note_info where note_state not in(?,?) order by dead_line_date,priority";
         try {
             conn = JdbcUtil.getConn();
             queryRunner = new QueryRunner();
@@ -62,7 +62,7 @@ public class NoteInfoDao {
         Connection conn = null;
         QueryRunner queryRunner = null;
         List<NoteInfo> list = null;
-        StringBuilder sb = new StringBuilder("select pk_id pkId,note_name noteName,note_comment noteComment,dead_line_date deadLineDate,priority priority,note_state noteState from note_info where 1=1 ");
+        StringBuilder sb = new StringBuilder("select pk_id pkId,note_name noteName,note_comment noteComment,dead_line_date deadLineDate,priority priority,note_state noteState,remind_time remindTime from note_info where 1=1 ");
         try {
             ArrayList<Object> params = new ArrayList<Object>();
             int seq = 0;
@@ -113,7 +113,7 @@ public class NoteInfoDao {
         Connection conn = null;
         QueryRunner queryRunner = null;
         NoteInfo noteInfo = null;
-        String sql = "select pk_id pkId,note_name noteName,note_comment noteComment,dead_line_date deadLineDate,priority priority,note_state noteState from note_info where pk_id=?";
+        String sql = "select pk_id pkId,note_name noteName,note_comment noteComment,dead_line_date deadLineDate,priority priority,note_state noteState,remind_time remindTime from note_info where pk_id=?";
         try {
             conn = JdbcUtil.getConn();
             queryRunner = new QueryRunner();
@@ -186,18 +186,19 @@ public class NoteInfoDao {
     public void saveOrUpdateNoteInfo(NoteInfo noteInfo) throws SQLException {
         Connection conn = null;
         QueryRunner queryRunner = null;
-        String sql_insert = "insert into note_info(note_name,note_comment,dead_line_date,priority,note_state,pk_id)values(?,?,?,?,?,?)";
-        String sql_update = "update note_info set note_name=?,note_comment=?,dead_line_date=?,priority=?,note_state=? where pk_id=?";
+        String sql_insert = "insert into note_info(note_name,note_comment,dead_line_date,priority,note_state,remind_time,pk_id)values(?,?,?,?,?,?,?)";
+        String sql_update = "update note_info set note_name=?,note_comment=?,dead_line_date=?,priority=?,note_state=?,remind_time=? where pk_id=?";
         try {
             conn = JdbcUtil.getConn();
             queryRunner = new QueryRunner();
-            Object[] params = new Object[6];
+            Object[] params = new Object[7];
             int seq = 0;
             params[seq++] = noteInfo.getNoteName();
             params[seq++] = noteInfo.getNoteComment();
             params[seq++] = noteInfo.getDeadLineDate();
             params[seq++] = noteInfo.getPriority();
             params[seq++] = noteInfo.getNoteState();
+            params[seq++] = noteInfo.getRemindTime();
             if (StringUtils.isNotEmpty(noteInfo.getPkId())) {
                 params[seq++] = noteInfo.getPkId();
                 queryRunner.update(conn, sql_update, params);

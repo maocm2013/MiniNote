@@ -50,10 +50,16 @@ public class EditNoteDialog extends javax.swing.JDialog {
         fd_priority = new org.jdesktop.swingx.JXComboBox();
         jXLabel5 = new org.jdesktop.swingx.JXLabel();
         fd_noteState = new org.jdesktop.swingx.JXComboBox();
-        jXButton1 = new org.jdesktop.swingx.JXButton();
-        jXButton2 = new org.jdesktop.swingx.JXButton();
+        submitBt = new org.jdesktop.swingx.JXButton();
+        cancleBt = new org.jdesktop.swingx.JXButton();
+        remindCheckBox = new javax.swing.JCheckBox();
+        hourComboBox = new org.jdesktop.swingx.JXComboBox();
+        minComboBox = new org.jdesktop.swingx.JXComboBox();
+        jXLabel6 = new org.jdesktop.swingx.JXLabel();
+        jXLabel7 = new org.jdesktop.swingx.JXLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("编辑");
 
         jXTitledSeparator1.setFont(new java.awt.Font("黑体", 0, 14)); // NOI18N
         jXTitledSeparator1.setTitle("编辑便签");
@@ -105,19 +111,37 @@ public class EditNoteDialog extends javax.swing.JDialog {
             fd_noteState.getModel().setSelectedItem(new ComboxValue(String.valueOf(DictEnum.NoteState.dataMap.get(noteInfo.getNoteState())),noteInfo.getNoteState()));
         }
 
-        jXButton1.setText("保   存");
-        jXButton1.addActionListener(new java.awt.event.ActionListener() {
+        submitBt.setText("保   存");
+        submitBt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jXButton1ActionPerformed(evt);
+                submitBtActionPerformed(evt);
             }
         });
 
-        jXButton2.setText("取  消");
-        jXButton2.addActionListener(new java.awt.event.ActionListener() {
+        cancleBt.setText("取  消");
+        cancleBt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jXButton2ActionPerformed(evt);
+                cancleBtActionPerformed(evt);
             }
         });
+
+        remindCheckBox.setText("提醒");
+
+        hourComboBox.setModel(UITools.getHourComboxModel());
+
+        minComboBox.setModel(UITools.getMinComboxModel());
+        if(noteInfo != null && StringUtils.isNotEmpty(noteInfo.getRemindTime())){
+            remindCheckBox.setSelected(true);
+            String remindTime = noteInfo.getRemindTime();
+            String hour = remindTime.substring(0, 2);
+            hourComboBox.setSelectedItem(hour);
+            String min = remindTime.substring(2, 4);
+            minComboBox.setSelectedItem(min);
+        }
+
+        jXLabel6.setText("时");
+
+        jXLabel7.setText("分");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -134,26 +158,38 @@ public class EditNoteDialog extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jXLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jXLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(fd_deadLineDate, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jXLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(fd_priority, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jXLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(fd_noteState, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(jScrollPane1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jXLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(fd_deadLineDate, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jXLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(fd_priority, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jXLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(fd_noteState, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(remindCheckBox)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(hourComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jXLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 15, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(minComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jXLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 15, Short.MAX_VALUE)
+                        .addGap(5, 5, 5)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jXButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(submitBt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jXButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cancleBt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
         );
         layout.setVerticalGroup(
@@ -172,7 +208,12 @@ public class EditNoteDialog extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jXLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(fd_deadLineDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fd_deadLineDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(remindCheckBox)
+                    .addComponent(hourComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(minComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jXLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jXLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jXLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -183,19 +224,19 @@ public class EditNoteDialog extends javax.swing.JDialog {
                     .addComponent(fd_noteState, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jXButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jXButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(submitBt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cancleBt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(41, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jXButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXButton2ActionPerformed
+    private void cancleBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancleBtActionPerformed
         this.dispose();
-    }//GEN-LAST:event_jXButton2ActionPerformed
+    }//GEN-LAST:event_cancleBtActionPerformed
 
-    private void jXButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXButton1ActionPerformed
+    private void submitBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtActionPerformed
         NoteInfo note = new NoteInfo();
         if (StringUtils.isEmpty(fd_noteName.getText())) {
             JOptionPane.showMessageDialog(this, "名称不能为空！");
@@ -223,7 +264,14 @@ public class EditNoteDialog extends javax.swing.JDialog {
         } else {
             note.setDeadLineDate(DateFormatUtils.format(fd_deadLineDate.getDate(), "yyyyMMdd"));
         }
-
+        
+        //提醒时间：如果选中提醒按钮，则提醒时间有效
+        String remindTime = "";
+        if(remindCheckBox.isSelected()){
+            remindTime = hourComboBox.getSelectedItem().toString() + minComboBox.getSelectedItem().toString();
+        }
+        note.setRemindTime(remindTime);
+        
         ComboxValue cm_priority = (ComboxValue) fd_priority.getSelectedItem();
         note.setPriority(cm_priority.getValue());
         ComboxValue cm_noteState = (ComboxValue) fd_noteState.getSelectedItem();
@@ -241,22 +289,27 @@ public class EditNoteDialog extends javax.swing.JDialog {
         //刷新父界面中的表单数据
         MiniNoteFrame frame = (MiniNoteFrame) this.getParent();
         frame.refreshNoteTableDatas();
-    }//GEN-LAST:event_jXButton1ActionPerformed
+    }//GEN-LAST:event_submitBtActionPerformed
     private NoteInfo noteInfo;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private org.jdesktop.swingx.JXButton cancleBt;
     private org.jdesktop.swingx.JXDatePicker fd_deadLineDate;
     private org.jdesktop.swingx.JXTextArea fd_noteComment;
     private org.jdesktop.swingx.JXTextField fd_noteName;
     private org.jdesktop.swingx.JXComboBox fd_noteState;
     private org.jdesktop.swingx.JXComboBox fd_priority;
+    private org.jdesktop.swingx.JXComboBox hourComboBox;
     private javax.swing.JScrollPane jScrollPane1;
-    private org.jdesktop.swingx.JXButton jXButton1;
-    private org.jdesktop.swingx.JXButton jXButton2;
     private org.jdesktop.swingx.JXLabel jXLabel1;
     private org.jdesktop.swingx.JXLabel jXLabel2;
     private org.jdesktop.swingx.JXLabel jXLabel3;
     private org.jdesktop.swingx.JXLabel jXLabel4;
     private org.jdesktop.swingx.JXLabel jXLabel5;
+    private org.jdesktop.swingx.JXLabel jXLabel6;
+    private org.jdesktop.swingx.JXLabel jXLabel7;
     private org.jdesktop.swingx.JXTitledSeparator jXTitledSeparator1;
+    private org.jdesktop.swingx.JXComboBox minComboBox;
+    private javax.swing.JCheckBox remindCheckBox;
+    private org.jdesktop.swingx.JXButton submitBt;
     // End of variables declaration//GEN-END:variables
 }

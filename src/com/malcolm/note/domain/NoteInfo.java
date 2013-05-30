@@ -11,6 +11,7 @@ public class NoteInfo {
     private String deadLineDate;
     private String priority;
     private String noteState;
+    private String remindTime;
 
     public String getPkId() {
         return pkId;
@@ -60,10 +61,16 @@ public class NoteInfo {
         this.noteState = noteState;
     }
 
+    public String getRemindTime() {
+        return remindTime;
+    }
+
+    public void setRemindTime(String remindTime) {
+        this.remindTime = remindTime;
+    }
+
     @Override
     public String toString() {
-        return "NoteInfo{" + "pkId=" + pkId + ", noteName=" + noteName + ", noteComment=" + noteComment + ", deadLineDate=" + deadLineDate + ", priority=" + priority + ", noteState=" + noteState + '}';
+        return "NoteInfo{" + "pkId=" + pkId + ", noteName=" + noteName + ", noteComment=" + noteComment + ", deadLineDate=" + deadLineDate + ", priority=" + priority + ", noteState=" + noteState + ", remindTime=" + remindTime + '}';
     }
-    
-    
 }

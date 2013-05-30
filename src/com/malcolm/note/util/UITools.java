@@ -11,6 +11,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -63,6 +64,30 @@ public class UITools {
             value.setName(entry.getValue().toString());
             value.setValue(entry.getKey().toString());
             v.add(value);
+        }
+        return new DefaultComboBoxModel(v);
+    }
+    
+    /**
+     * 获取小时选择下拉选项
+     * @return 
+     */
+    public static DefaultComboBoxModel getHourComboxModel(){
+        String[] v = new String[24];
+        for(int i = 0; i < v.length; i++){
+            v[i] = StringUtils.leftPad(String.valueOf(i), 2,"0");
+        }
+        return new DefaultComboBoxModel(v);
+    }
+    
+    /**
+     * 获取分钟选择下拉选项
+     * @return 
+     */
+    public static DefaultComboBoxModel getMinComboxModel(){
+        String[] v = new String[60];
+        for(int i = 0; i < v.length; i++){
+            v[i] = StringUtils.leftPad(String.valueOf(i), 2,"0");
         }
         return new DefaultComboBoxModel(v);
     }
