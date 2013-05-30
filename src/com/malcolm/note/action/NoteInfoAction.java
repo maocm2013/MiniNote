@@ -7,28 +7,49 @@ import com.malcolm.note.util.DictEnum;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author user
  */
 public class NoteInfoAction {
+    private static final Logger log = Logger.getLogger(NoteInfoAction.class);
 
     private static final NoteInfoDao dao = new NoteInfoDao();
 
     /**
+     * 获取未完成的便签信息
      *
      * @return
      */
-    public static Object[][] getAllNoteTableData() {
+    public static Object[][] getAllNotFinishedNoteTableData() {
         Object[][] data = null;
         try {
-            List<NoteInfo> list = dao.getAllNoteInfo();
+            List<NoteInfo> list = dao.getAllNoteInfo(new String[]{DictEnum.NoteState.DELAY, DictEnum.NoteState.HUNGUP,DictEnum.NoteState.INACTIVE,DictEnum.NoteState.PROCESSING});
             if (list != null && list.size() > 0) {
                 data = List2TableData(list);
             }
         } catch (Exception ex) {
-            ex.printStackTrace();
+            log.error("error:", ex);
+        }
+        return data;
+    }
+
+    /**
+     * 获取已完成的便签信息
+     *
+     * @return
+     */
+    public static Object[][] getAllFinishedNoteTableData() {
+        Object[][] data = null;
+        try {
+            List<NoteInfo> list = dao.getAllNoteInfo(new String[]{DictEnum.NoteState.FINISHED, DictEnum.NoteState.DISCARD});
+            if (list != null && list.size() > 0) {
+                data = List2TableData(list);
+            }
+        } catch (Exception ex) {
+            log.error("error:", ex);
         }
         return data;
     }
@@ -52,7 +73,7 @@ public class NoteInfoAction {
                 data = List2TableData(list);
             }
         } catch (Exception ex) {
-            ex.printStackTrace();
+            log.error("error:", ex);
         }
         return data;
     }
@@ -83,7 +104,7 @@ public class NoteInfoAction {
         try {
             dao.saveOrUpdateNoteInfo(noteInfo);
         } catch (Exception ex) {
-            ex.printStackTrace();
+            log.error("error:", ex);
         }
     }
 
@@ -98,7 +119,7 @@ public class NoteInfoAction {
         try {
             noteInfo = dao.getNoteInfoById(pkId);
         } catch (Exception ex) {
-            ex.printStackTrace();
+            log.error("error:", ex);
         }
         return noteInfo;
     }
@@ -113,7 +134,7 @@ public class NoteInfoAction {
         try {
             dao.deleteNoteInfoById(list);
         } catch (Exception ex) {
-            ex.printStackTrace();
+            log.error("error:", ex);
         }
     }
 
@@ -127,7 +148,7 @@ public class NoteInfoAction {
         try {
             dao.finishNoteInfoById(list);
         } catch (Exception ex) {
-            ex.printStackTrace();
+            log.error("error:", ex);
         }
     }
 }

@@ -40,11 +40,11 @@ public class MiniNoteFrame extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         NoteTableConfig.NoteTableModel model = new NoteTableConfig().new NoteTableModel();
         //初始化显示数据
-        Object[][] datas = NoteInfoAction.getAllNoteTableData();
+        Object[][] datas = NoteInfoAction.getAllNotFinishedNoteTableData();
         model.refreshContents(datas);
         noteTable = new org.jdesktop.swingx.JXTable(model);
         jScrollPane1 = new javax.swing.JScrollPane();
-        jXTree1 = new org.jdesktop.swingx.JXTree();
+        noteMenuTree = new org.jdesktop.swingx.JXTree();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("桌面便签");
@@ -142,7 +142,13 @@ public class MiniNoteFrame extends javax.swing.JFrame {
         noteTable.setRowHeight(30);
         jScrollPane2.setViewportView(noteTable);
 
-        jScrollPane1.setViewportView(jXTree1);
+        noteMenuTree.setModel(TreeMenuConfig.generateTreeMenu());
+        noteMenuTree.addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
+            public void valueChanged(javax.swing.event.TreeSelectionEvent evt) {
+                noteMenuTreeValueChanged(evt);
+            }
+        });
+        jScrollPane1.setViewportView(noteMenuTree);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -221,28 +227,40 @@ public class MiniNoteFrame extends javax.swing.JFrame {
         dialog.setVisible(true);
     }//GEN-LAST:event_searchBtonActionPerformed
 
+    private void noteMenuTreeValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_noteMenuTreeValueChanged
+        String menuName = evt.getPath().getLastPathComponent().toString();
+        NoteTableConfig.NoteTableModel model = (NoteTableConfig.NoteTableModel) noteTable.getModel();
+        if (menuName.equals(TreeMenuConfig.MenuName.M_00_01)) {
+            model.refreshContents(NoteInfoAction.getAllNotFinishedNoteTableData());
+        } else if (menuName.equals(TreeMenuConfig.MenuName.M_00_02)) {
+            model.refreshContents(NoteInfoAction.getAllFinishedNoteTableData());
+        }
+        noteTable.setModel(model);
+    }//GEN-LAST:event_noteMenuTreeValueChanged
+
     /**
      * 刷新表单数据
      */
     public void refreshNoteTableDatas() {
         NoteTableConfig.NoteTableModel model = (NoteTableConfig.NoteTableModel) noteTable.getModel();
-        model.refreshContents(NoteInfoAction.getAllNoteTableData());
+        model.refreshContents(NoteInfoAction.getAllNotFinishedNoteTableData());
         //TODO:必须要重新设置一下model，否则刷新内容后界面无变化
         noteTable.setModel(model);
     }
 
     /**
      * 根据条件查询便签信息
+     *
      * @param noteName
      * @param noteComment
      * @param deadLineDateStart
      * @param deadLineDateEnd
      * @param priority
-     * @param noteState 
+     * @param noteState
      */
-    public void refreshNoteTableDatas(String noteName,String noteComment,Date deadLineDateStart,Date deadLineDateEnd,String priority,String noteState) {
+    public void refreshNoteTableDatas(String noteName, String noteComment, Date deadLineDateStart, Date deadLineDateEnd, String priority, String noteState) {
         NoteTableConfig.NoteTableModel model = (NoteTableConfig.NoteTableModel) noteTable.getModel();
-        model.refreshContents(NoteInfoAction.getAllNoteTableData(noteName,noteComment,deadLineDateStart,deadLineDateEnd,priority,noteState));
+        model.refreshContents(NoteInfoAction.getAllNoteTableData(noteName, noteComment, deadLineDateStart, deadLineDateEnd, priority, noteState));
         //TODO:必须要重新设置一下model，否则刷新内容后界面无变化
         noteTable.setModel(model);
     }
@@ -253,7 +271,7 @@ public class MiniNoteFrame extends javax.swing.JFrame {
     private javax.swing.JButton finishBton;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private org.jdesktop.swingx.JXTree jXTree1;
+    private org.jdesktop.swingx.JXTree noteMenuTree;
     private org.jdesktop.swingx.JXTable noteTable;
     private javax.swing.JButton searchBton;
     private javax.swing.JToolBar toolBar;

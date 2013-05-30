@@ -22,24 +22,33 @@ import org.apache.log4j.Logger;
  * @author user
  */
 public class NoteInfoDao {
+
     private static final Logger log = Logger.getLogger(NoteInfoDao.class);
 
     /**
-     * 获取所有便签信息,默认不显示已完成和遗弃的数据，并且按照到达日期升序、优先级升序排列
-     *
+     * 根据便签状态筛选数据，并且按照到达日期升序、优先级升序排列
+     * @param noteStates 如果为NULL则获取所有数据
      * @return
-     * @throws SQLException
-     * @throws ClassNotFoundException
+     * @throws SQLException 
      */
-    public List getAllNoteInfo() throws SQLException{
+    public List getAllNoteInfo(String[] noteStates) throws SQLException {
         Connection conn = null;
         QueryRunner queryRunner = null;
         List<NoteInfo> list = null;
-        String sql = "select pk_id pkId,note_name noteName,note_comment noteComment,dead_line_date deadLineDate,priority priority,note_state noteState,remind_time remindTime from note_info where note_state not in(?,?) order by dead_line_date,priority";
+        StringBuffer sb = new StringBuffer("select pk_id pkId,note_name noteName,note_comment noteComment,dead_line_date deadLineDate,priority priority,note_state noteState,remind_time remindTime from note_info where 1=1 ");
+        if (noteStates != null && noteStates.length > 0) {
+            sb.append("and ( 1<>1 ");
+            for (int i = 0; i < noteStates.length; i++) {
+                sb.append(" or note_state = ? ");
+            }
+            sb.append(" ) ");
+        }
+        sb.append(" order by dead_line_date,priority");
+
         try {
             conn = JdbcUtil.getConn();
             queryRunner = new QueryRunner();
-            list = (List<NoteInfo>) queryRunner.query(conn, sql, new BeanListHandler(NoteInfo.class), DictEnum.NoteState.FINISHED, DictEnum.NoteState.DISCARD);
+            list = (List<NoteInfo>) queryRunner.query(conn, sb.toString(), new BeanListHandler(NoteInfo.class), noteStates);
         } finally {
             DbUtils.close(conn);
         }
@@ -48,6 +57,7 @@ public class NoteInfoDao {
 
     /**
      * 根据条件查询便签信息,默认不显示已完成和遗弃的数据，并且按照到达日期升序、优先级升序排列
+     *
      * @param noteName
      * @param noteComment
      * @param deadLineDateStart
@@ -56,7 +66,7 @@ public class NoteInfoDao {
      * @param noteState
      * @return
      * @throws SQLException
-     * @throws ClassNotFoundException 
+     * @throws ClassNotFoundException
      */
     public List getAllNoteInfo(String noteName, String noteComment, Date deadLineDateStart, Date deadLineDateEnd, String priority, String noteState) throws SQLException {
         Connection conn = null;
@@ -65,7 +75,6 @@ public class NoteInfoDao {
         StringBuilder sb = new StringBuilder("select pk_id pkId,note_name noteName,note_comment noteComment,dead_line_date deadLineDate,priority priority,note_state noteState,remind_time remindTime from note_info where 1=1 ");
         try {
             ArrayList<Object> params = new ArrayList<Object>();
-            int seq = 0;
             if (StringUtils.isNotEmpty(noteName)) {
                 params.add(noteName.trim());
                 sb.append(" and note_name like '%'||?||'%' ");
@@ -92,7 +101,7 @@ public class NoteInfoDao {
             }
             sb.append(" order by dead_line_date,priority");
             log.debug("查询sql=" + sb.toString());
-            
+
             conn = JdbcUtil.getConn();
             queryRunner = new QueryRunner();
             list = (List<NoteInfo>) queryRunner.query(conn, sb.toString(), new BeanListHandler(NoteInfo.class), params.toArray());
@@ -109,7 +118,7 @@ public class NoteInfoDao {
      * @throws SQLException
      * @throws ClassNotFoundException
      */
-    public NoteInfo getNoteInfoById(String pkId) throws SQLException{
+    public NoteInfo getNoteInfoById(String pkId) throws SQLException {
         Connection conn = null;
         QueryRunner queryRunner = null;
         NoteInfo noteInfo = null;
@@ -132,7 +141,7 @@ public class NoteInfoDao {
      * @throws SQLException
      * @throws ClassNotFoundException
      */
-    public void deleteNoteInfoById(ArrayList<String> list) throws SQLException{
+    public void deleteNoteInfoById(ArrayList<String> list) throws SQLException {
         Connection conn = null;
         QueryRunner queryRunner = null;
         String sql = "delete from note_info where pk_id=?";
