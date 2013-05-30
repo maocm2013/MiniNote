@@ -21,7 +21,7 @@ public class JdbcUtilTest {
     //@Test
     public void tetGetNoteInfo() throws SQLException, ClassNotFoundException{
         NoteInfoDao dao = new NoteInfoDao();
-        List<NoteInfo> list = dao.getAllNoteInfo();
+        List<NoteInfo> list = dao.getAllNoteInfo(null);
         if(list != null && list.size() > 0){
             for(int i = 0; i < list.size(); i++){
                 NoteInfo note = list.get(i);

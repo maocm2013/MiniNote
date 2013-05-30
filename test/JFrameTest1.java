@@ -55,7 +55,7 @@ public class JFrameTest1 extends javax.swing.JFrame {
 
         NoteTableConfig.NoteTableModel model1 = new NoteTableConfig().new NoteTableModel();
         //初始化显示数据
-        Object[][] datas1 = NoteInfoAction.getAllNoteTableData();
+        Object[][] datas1 = NoteInfoAction.getAllNotFinishedNoteTableData();
         model1.refreshContents(datas1);
         jXTable1.setModel(model1);
         //第一列隐藏
